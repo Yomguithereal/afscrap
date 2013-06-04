@@ -13,7 +13,7 @@
 // Deoendancies
 //-------------
 var CLTool = require('node-commandline');
-var AFScrapper = require('./model/AFScrapper.js');
+var AFScraper = require('./model/AFScrapper.js');
 
 // Main Class
 //------------

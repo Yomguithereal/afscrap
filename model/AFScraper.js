@@ -15,7 +15,7 @@ var Config = require('./ConfigLoader.js');
 
 // Main Class
 //------------
-function AFScrapper(){
+function AFScraper(){
 	
 	// Loading Configuration	
 	Config.load({variable : "fora", file : "./config/forum.json"});

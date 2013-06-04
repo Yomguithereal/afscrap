@@ -9,7 +9,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "to complete"
+    "url": "git://github.com/Yomguithereal/afscrap.git"
   },
   "dependencies": {
     "node-commandline" : "*",
