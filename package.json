@@ -1,0 +1,22 @@
+{
+  "name": "afscrap",
+  "version": "0.1.0",
+  "private": true,
+  "author" : "Medialab-Yomgui",
+  "description" : "A simple scraper for aufeminin.com's forum.",
+  "scripts": {
+    "start": "node afscrap.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "to complete"
+  },
+  "dependencies": {
+    "node-commandline" : "*",
+    "request" : "*",
+    "cheerio" : "*"
+  },
+  "engines" : {
+    "node" : ">=0.10.9"
+  }
+}

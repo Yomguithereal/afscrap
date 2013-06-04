@@ -1,0 +1,11 @@
+{
+    "en" : [
+        { "keyword" : "c-section"}
+    ],
+    "fr" : [
+        { "keyword" : "césarienne"}
+    ],
+    "it" : [
+        { "keyword" : "cesareo"}
+    ]
+}
