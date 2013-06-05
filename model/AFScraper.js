@@ -11,13 +11,20 @@
 
 // Dependancies
 //-------------
-var ForumPage = require('./ForumPage.js');
-var ThreadPage = require('./ThreadPage.js');
+var Thread = require('./Thread.js');
 
 // Main Class
 //------------
-function AFScraper(json_list){
+function AFScraper(){
 
+	// Methods
+	this.fetchThreads = function(json_list){
+
+		// Looping through the list
+		json_list.forEach(function(thread){
+			new Thread(thread);
+		});
+	}
 }
 
 // Launching the process

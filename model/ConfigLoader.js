@@ -1,6 +1,6 @@
 /*
 | -------------------------------------------------------------------
-|  Post Abstraction
+|  Configuration Loader
 | -------------------------------------------------------------------
 |
 |
@@ -11,26 +11,27 @@
 
 // Dependancies
 //-------------
+var fs = require('fs');
 
 // Main Class
 //------------
-function Post(properties){
-	
+function ConfigLoader(){
+
 	var self = this;
 
-	// Methods
-	this.formatDate = function(encrypted_date){
-		return encrypted_date;
+	// Loading a configuration file
+	this.load = function(object){
+
+		// Parsing JSON
+		var json = fs.readFileSync(object.file);
+
+		// Allocating property
+		self[object.variable] = JSON.parse(json);
+
 	}
-
-	// Hydratation
-	this.author = properties.author;
-	this.title = properties.title;
-	this.date = new Date(properties.date);
-	this.text = properties.text;
-
 }
+
 
 // Exporting
 //------------
-module.exports = Post;
+module.exports = new ConfigLoader();
