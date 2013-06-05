@@ -18,7 +18,7 @@ var Post = require('./Post.js');
 // Main Class
 //------------
 function Thread(thread, callback){
-	
+
 	var self = this;
 	var $ = false;
 
@@ -51,7 +51,7 @@ function Thread(thread, callback){
 			self.checkPagination();
 
 			// Getting main post's information
-			self.getMainPost();
+			self.getMainPost(data);
 
 			// self.dump();
 
@@ -97,7 +97,7 @@ function Thread(thread, callback){
 	}
 
 	// Getting basic post information
-	this.getMainPost = function(){
+	this.getMainPost = function(data){
 
 		// Hydratation of Post
 		var MainPost = new Post({
@@ -105,11 +105,9 @@ function Thread(thread, callback){
 			,author : $(self.author_path).eq(0).text()
 			,date : $(self.main_date_path).eq(0).html().match(/aff_FormatDate\(([^,]+),/)[1]
 			,text : $(self.post_path).eq(0).html()
+			,date_salt : data.match(/aff_FormatDate.sd=([^;]+);/)[1]	
 		});
 		self.posts.push(MainPost);
-
-		console.log(MainPost);
-
 	}
 
 	// Outputting
