@@ -19,15 +19,21 @@ var Post = require('./Post.js');
 //------------
 function Thread(thread, callback){
 
+
+	// Object Configuration
+	//---------------------
+
 	var self = this;
 	var $ = false;
+	this.by_author_string = /par : |da: |by:/;
 
 	// Paths
 	this.pagination_path = 'table.aff_navHigh';
 	this.main_post_path = 'table.aff_topicList';
 	this.main_date_path = 'span.aff_date > script';
 	this.author_path = 'span.aff_author';
-	this.post_path = 'p.aff_contenu';
+	this.generic_post_path = '.aff_blocRepNiv1:not(.aff_blocRepAd), .aff_blocRepNiv2:not(.aff_blocRepAd), .aff_blocRepNiv3:not(.aff_blocRepAd)';
+	this.post_content_path = 'p.aff_contenu';
 
 	// Properties
 	this.base_url = thread.url;
@@ -37,12 +43,17 @@ function Thread(thread, callback){
 	this.hasPagination = false;
 	this.nextPage = false;
 	this.isLastPage = false;
+	this.current_salt = false;
 	this.posts = [];
+
+	// DEBUG
+	console.log(self.base_url);
+
 
 	// Base Loop
 	//------------
-	this.loop_through_thread = function(callback){
-		url_getter.fetch(self.base_url, function(data){
+	this.loop_through_thread = function(url, callback){
+		url_getter.fetch(url, function(data){
 
 			// Loading Cheerio
 			$ = cheerio.load(data);
@@ -50,18 +61,22 @@ function Thread(thread, callback){
 			// Checking the existence of a pagination
 			self.checkPagination();
 
-			// Getting main post's information
-			self.getMainPost(data);
+			// Getting current date salt
+			self.current_salt = $(self.main_date_path).eq(0).html().match(/aff_FormatDate\(([^,]+),/)[1];
 
-			// self.dump();
+			// Getting posts information
+			self.getMainPost();
+			self.getPosts();
 
-			// If thread hasn't pagination and is relevant
-			if(!self.hasPagination){
+			// If thread has only one page
+			if(self.isLastPage){
 				self.output();
+				console.log(self.posts);
 				return false;
 			}
 
 			// Going throught pagination
+			self.loop_through_thread(self.nextPage);
 
 		});
 	}
@@ -71,7 +86,7 @@ function Thread(thread, callback){
 	//------------
 
 	// Initializing loop
-	this.loop_through_thread();
+	this.loop_through_thread(self.base_url);
 
 	// Searching for pagination
 	this.checkPagination = function(){
@@ -97,17 +112,33 @@ function Thread(thread, callback){
 	}
 
 	// Getting basic post information
-	this.getMainPost = function(data){
+	this.getMainPost = function(){
 
 		// Hydratation of Post
 		var MainPost = new Post({
 			title : $(self.main_post_path).find('h1').eq(0).text()
 			,author : $(self.author_path).eq(0).text()
 			,date : $(self.main_date_path).eq(0).html().match(/aff_FormatDate\(([^,]+),/)[1]
-			,text : $(self.post_path).eq(0).html()
-			,date_salt : data.match(/aff_FormatDate.sd=([^;]+);/)[1]	
+			,text : $(self.post_content_path).eq(0).html()
+			,date_salt : self.current_salt
 		});
 		self.posts.push(MainPost);
+	}
+
+	// Getting standard posts
+	this.getPosts = function(){
+		$(self.generic_post_path).each(function(){
+
+			// Hydratation of Post
+			var GenericPost = new Post({
+				title : $(this).find('h2').eq(0).text()
+				,author : $(this).find(self.author_path).eq(0).text().replace(self.by_author_string, '')
+				,date : $(this).find(self.main_date_path).eq(0).html().match(/aff_FormatDate\(([^,]+),/)[1]
+				,text : $(this).find(self.post_content_path).eq(0).html()
+				,date_salt : self.current_salt
+			});
+			self.posts.push(GenericPost);
+		});
 	}
 
 	// Outputting

@@ -21,9 +21,10 @@ function AFScraper(){
 	this.fetchThreads = function(json_list){
 
 		// Looping through the list
-		json_list.forEach(function(thread){
-			new Thread(thread);
-		});
+		// json_list.forEach(function(thread){
+		// 	new Thread(thread);
+		// });
+		new Thread(json_list[2]);
 	}
 }
 

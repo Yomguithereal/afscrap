@@ -20,14 +20,13 @@ function Post(properties){
 
 	this.date_salt = properties.date_salt;
 
-	// Methods
-	this.formatDate = function(encrypted_date){
+	// Overriding aufemin's salt
+	function formatDate(encrypted_date){
 		
 		// Using aufeminin.com's function
 		var d = new Date();
-		var o = d.getTime()-this.date_salt*1000;
+		var o = d.getTime()-self.date_salt*1000;
 		d.setTime(encrypted_date*1000+o);
-		console.log(d);
 
 		return d;
 	}
@@ -35,8 +34,8 @@ function Post(properties){
 	// Hydratation
 	this.author = properties.author;
 	this.title = properties.title;
-	this.date = this.formatDate(properties.date);
-	this.text = properties.text;
+	this.date = formatDate(properties.date);
+	// this.text = properties.text;
 
 }
 
