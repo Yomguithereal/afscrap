@@ -29,8 +29,8 @@ function Thread(thread, callback){
 
 	// Paths
 	this.pagination_path = 'table.aff_navHigh';
-	this.main_post_path = 'table.aff_topicList';
-	this.main_date_path = 'span.aff_date > script';
+	this.post_path = 'table.aff_topicList';
+	this.date_path = 'span.aff_date > script';
 	this.author_path = 'span.aff_author';
 	this.generic_post_path = '.aff_blocRepNiv1:not(.aff_blocRepAd), .aff_blocRepNiv2:not(.aff_blocRepAd), .aff_blocRepNiv3:not(.aff_blocRepAd)';
 	this.post_content_path = 'p.aff_contenu';
@@ -62,7 +62,7 @@ function Thread(thread, callback){
 			self.checkPagination();
 
 			// Getting current date salt
-			self.current_salt = $(self.main_date_path).eq(0).html().match(/aff_FormatDate\(([^,]+),/)[1];
+			self.current_salt = $(self.date_path).eq(0).html().match(/aff_FormatDate\(([^,]+),/)[1];
 
 			// Getting posts information
 			self.getMainPost();
@@ -71,7 +71,7 @@ function Thread(thread, callback){
 			// If thread has only one page
 			if(self.isLastPage){
 				self.output();
-				console.log(self.posts);
+				// console.log(self.posts);
 				return false;
 			}
 
@@ -80,6 +80,9 @@ function Thread(thread, callback){
 
 		});
 	}
+
+
+
 
 
 	// Utilities
@@ -116,9 +119,9 @@ function Thread(thread, callback){
 
 		// Hydratation of Post
 		var MainPost = new Post({
-			title : $(self.main_post_path).find('h1').eq(0).text()
+			title : $(self.post_path).find('h1').eq(0).text()
 			,author : $(self.author_path).eq(0).text()
-			,date : $(self.main_date_path).eq(0).html().match(/aff_FormatDate\(([^,]+),/)[1]
+			,date : $(self.date_path).eq(0).html().match(/aff_FormatDate\(([^,]+),/)[1]
 			,text : $(self.post_content_path).eq(0).html()
 			,date_salt : self.current_salt
 		});
@@ -133,7 +136,7 @@ function Thread(thread, callback){
 			var GenericPost = new Post({
 				title : $(this).find('h2').eq(0).text()
 				,author : $(this).find(self.author_path).eq(0).text().replace(self.by_author_string, '')
-				,date : $(this).find(self.main_date_path).eq(0).html().match(/aff_FormatDate\(([^,]+),/)[1]
+				,date : $(this).find(self.date_path).eq(0).html().match(/aff_FormatDate\(([^,]+),/)[1]
 				,text : $(this).find(self.post_content_path).eq(0).html()
 				,date_salt : self.current_salt
 			});
@@ -159,17 +162,6 @@ function Thread(thread, callback){
 		console.log('');
 	}
 }
-
-// Tests
-//------------
-var test = function(){
-
-}
-
-if(require.main === module){
-	test();
-}
-
 
 
 // Exporting
