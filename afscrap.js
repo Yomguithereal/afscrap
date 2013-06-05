@@ -12,7 +12,6 @@
 
 // Deoendancies
 //-------------
-var CLTool = require('node-commandline');
 var AFScraper = require('./model/AFScraper.js');
 
 // Main Class
@@ -24,7 +23,9 @@ function ArgvParser(){
 
 	// TODO : Gérer les arguments de la commandline
 	// Lauching process
-	AFScraper.fetchForum();
+
+	// Test sur un forum en particulier
+	
 
 }
 

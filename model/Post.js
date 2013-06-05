@@ -1,6 +1,6 @@
 /*
 | -------------------------------------------------------------------
-|  Configuration Loader
+|  Post Abstraction
 | -------------------------------------------------------------------
 |
 |
@@ -11,27 +11,21 @@
 
 // Dependancies
 //-------------
-var fs = require('fs');
 
 // Main Class
 //------------
-function ConfigLoader(){
-
+function Post(author, title, date, text){
+	
 	var self = this;
 
-	// Loading a configuration file
-	this.load = function(object){
+	// Properties
+	this.author = author;
+	this.title = title;
+	this.date = date;
+	this.text = text;
 
-		// Parsing JSON
-		var json = fs.readFileSync(object.file);
-
-		// Allocating property
-		self[object.variable] = JSON.parse(json);
-
-	}
 }
-
 
 // Exporting
 //------------
-module.exports = new ConfigLoader();
+module.exports = Post
