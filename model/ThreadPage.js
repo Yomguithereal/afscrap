@@ -9,7 +9,7 @@
 |	Version : 1.0
 */
 
-// Deoendancies
+// Dependancies
 //-------------
 var url_getter = require('./URLGetter.js');
 var cheerio = require('cheerio');

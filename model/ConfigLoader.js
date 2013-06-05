@@ -9,7 +9,7 @@
 |	Version : 1.0
 */
 
-// Deoendancies
+// Dependancies
 //-------------
 var fs = require('fs');
 

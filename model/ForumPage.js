@@ -9,7 +9,7 @@
 |	Version : 1.0
 */
 
-// Deoendancies
+// Dependancies
 //-------------
 var url_getter = require('./URLGetter.js');
 var cheerio = require('cheerio');
@@ -56,13 +56,13 @@ function ForumPage(url, callback){
 				}
 
 			});
+
+			// Triggering Callback
+			callback();
 		}
 	});
-	
-	console.log(this.next_page_url);
 
 }
-new ForumPage("http://www.aufeminin.com/forum/show1_matern1_300/grossesse/grossesse-attendre-bebe.html");
 
 // Exporting
 //------------
