@@ -162,7 +162,7 @@ function Thread(thread, output_directory, callback){
 			'posts' : this.posts
 		}
 
-		var file_name = output_directory+'/'+escape(thread_output.title)+'_'+thread_output.date;
+		var file_name = output_directory+'/'+escape(thread_output.title)+'_'+thread_output.date+'_'+thread_output.author;
 
 		// Writing
 		fs.writeFile(file_name, JSON.stringify(thread_output), function(err){

@@ -15,7 +15,7 @@
 var fs = require('fs');
 var CLTool = require('node-commandline');
 var AFScraper = require('./model/AFScraper.js');
-var Config = require('./model/ConfigLoader.js');
+var Config = require('./model/Confgi statuigLoader.js');
 
 // Main Class
 //------------
