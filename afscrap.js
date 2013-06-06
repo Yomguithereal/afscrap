@@ -12,6 +12,7 @@
 
 // Deoendancies
 //-------------
+var fs = require('fs');
 var CLTool = require('node-commandline');
 var AFScraper = require('./model/AFScraper.js');
 var Config = require('./model/ConfigLoader.js');
@@ -28,8 +29,17 @@ function ArgvParser(){
 
 	// Test sur un forum en particulier
 	Config.load({variable : 'list', file : './config/forum_test.json'});
+	Config.output_directory = './output';
 
-	AFScraper.fetchThreads(Config.list);
+	// Checking existence of output dir.
+	if(!fs.existsSync(Config.output_directory)){
+			
+		// The output directory does not exist, we create it
+		fs.mkdirSync(Config.output_directory);
+	}
+
+
+	AFScraper.fetchThreads(Config.list, Config.output_directory);
 	
 }
 

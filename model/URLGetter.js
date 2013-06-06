@@ -22,6 +22,7 @@ function URLGetter(){
 	// Acceptable HTTP Code
 	this.acceptable_http_code = [200, 304];
 
+
 	// Getting the html
 	this.fetch = function(url, callback){
 

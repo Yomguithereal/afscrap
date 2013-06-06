@@ -28,14 +28,22 @@ function Post(properties){
 		var o = d.getTime()-self.date_salt*1000;
 		d.setTime(encrypted_date*1000+o);
 
-		return d;
+		// Formatting Date
+		var date = d.getDate();
+		if(date.toString().length === 1){ date = "0"+date;}
+
+		// Formatting Month
+		var month = d.getMonth()+1;
+		if(month.toString().length === 1){ month = "0"+month;}
+
+		return date+'-'+month+'-'+d.getFullYear();
 	}
 
 	// Hydratation
 	this.author = properties.author;
 	this.title = properties.title;
 	this.date = formatDate(properties.date);
-	// this.text = properties.text;
+	this.text = properties.text;
 
 }
 

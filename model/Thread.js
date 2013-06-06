@@ -11,13 +11,14 @@
 
 // Dependancies
 //-------------
+var fs = require('fs');
 var url_getter = require('./URLGetter.js');
 var cheerio = require('cheerio');
 var Post = require('./Post.js');
 
 // Main Class
 //------------
-function Thread(thread, callback){
+function Thread(thread, output_directory, callback){
 
 
 	// Object Configuration
@@ -46,13 +47,12 @@ function Thread(thread, callback){
 	this.current_salt = false;
 	this.posts = [];
 
-	// DEBUG
-	console.log(self.base_url);
 
 
 	// Base Loop
 	//------------
-	this.loop_through_thread = function(url, callback){
+	this.loop_through_thread = function(url, isFirstPage){
+
 		url_getter.fetch(url, function(data){
 
 			// Loading Cheerio
@@ -62,21 +62,22 @@ function Thread(thread, callback){
 			self.checkPagination();
 
 			// Getting current date salt
-			self.current_salt = $(self.date_path).eq(0).html().match(/aff_FormatDate\(([^,]+),/)[1];
+			self.current_salt = data.match(/aff_FormatDate.sd=([^;]+);/)[1];
 
 			// Getting posts information
-			self.getMainPost();
+			if(isFirstPage){
+				self.getMainPost();
+			}
 			self.getPosts();
 
 			// If thread has only one page
 			if(self.isLastPage){
 				self.output();
-				// console.log(self.posts);
 				return false;
 			}
 
 			// Going throught pagination
-			self.loop_through_thread(self.nextPage);
+			self.loop_through_thread(self.nextPage, false);
 
 		});
 	}
@@ -89,7 +90,7 @@ function Thread(thread, callback){
 	//------------
 
 	// Initializing loop
-	this.loop_through_thread(self.base_url);
+	this.loop_through_thread(self.base_url, true);
 
 	// Searching for pagination
 	this.checkPagination = function(){
@@ -148,7 +149,30 @@ function Thread(thread, callback){
 	this.output = function(){
 
 		// Async to text file
-		// console.log('Outputting...');
+		console.log('Outputting '+self.base_url+' thread.');
+
+		// Formatting
+		var thread_output = {
+			'url' : this.base_url,
+			'title' : this.posts[0].title,
+			'author' : this.posts[0].author,
+			'date' : this.posts[0].date,
+			'num_posts' : this.num_posts,
+			'num_authors' : this.num_authors,
+			'posts' : this.posts
+		}
+
+		var file_name = output_directory+'/'+escape(thread_output.title)+'_'+thread_output.date;
+
+		// Writing
+		fs.writeFile(file_name, JSON.stringify(thread_output), function(err){
+			if(err){
+				console.log('Error outputting '+self.base_url+' thread.');
+			}
+		});
+
+
+		
 	}
 
 	// Dumping
