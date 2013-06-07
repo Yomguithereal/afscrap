@@ -14,7 +14,8 @@
   "dependencies": {
     "node-commandline" : "*",
     "request" : "*",
-    "cheerio" : "*"
+    "cheerio" : "*",
+    "colors" : "*"
   },
   "engines" : {
     "node" : ">=0.10.9"
