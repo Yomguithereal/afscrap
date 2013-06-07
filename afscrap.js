@@ -38,9 +38,10 @@ function ArgvParser(){
 		fs.mkdirSync(Config.output_directory);
 	}
 
-
+	Config.load({variable : 'test', file : './output/show1_matern1_1_13667.json'});
+	console.log(Config.test.length);
 	// AFScraper.fetchThreads(Config.list, Config.output_directory);
-	// AFScraper.fetchForum('http://www.aufeminin.com/forum/show1_matern1_1');
+	// AFScraper.fetchForum('http://www.aufeminin.com/forum/show1_matern1_1/grossesse/grossesse-attendre-bebe.html', Config.output_directory);
 	
 }
 

@@ -11,6 +11,7 @@
 
 // Dependancies
 //-------------
+var Forum = require('./Forum.js');
 var Thread = require('./Thread.js');
 
 // Main Class
@@ -20,9 +21,9 @@ function AFScraper(){
 	// Object Configuration
 	this.max_pile = 3;
 
-	// Looping through a forum to get back the url
+	// Looping through a forum to get back the threadsnpo
 	this.fetchForum = function(forum_url, output_directory){
-		console.log('tadn');
+		new Forum(forum_url, output_directory);
 	}
 
 	// Looping through threads to get back

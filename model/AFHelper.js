@@ -20,22 +20,31 @@ function AFHelper(){
 
 
 	// AF Format Date
-	this.formatDate = function(encrypted_date, date_salt){
+	this.formatDate = function(encrypted_date, date_salt, return_object){
+
+		return_object = return_object || false;
 		
 		// Using aufeminin.com's function
 		var d = new Date();
 		var o = d.getTime()-date_salt*1000;
 		d.setTime(encrypted_date*1000+o);
 
-		// Formatting Date
-		var date = d.getDate();
-		if(date.toString().length === 1){ date = "0"+date;}
+		// Selecting return
+		if(!return_object){
 
-		// Formatting Month
-		var month = d.getMonth()+1;
-		if(month.toString().length === 1){ month = "0"+month;}
+			// Formatting Date
+			var date = d.getDate();
+			if(date.toString().length === 1){ date = "0"+date;}
 
-		return date+'-'+month+'-'+d.getFullYear();
+			// Formatting Month
+			var month = d.getMonth()+1;
+			if(month.toString().length === 1){ month = "0"+month;}
+
+			return date+'-'+month+'-'+d.getFullYear();
+		}
+		else{
+			return d;
+		}
 	}
 
 }
