@@ -34,7 +34,7 @@ function AFScraper(){
 	}
 
 	// Looping through threads to get back
-	this.fetchThreads = function(json_list, output_directory){
+	this.fetchThreads = function(json_list, keywords, output_directory){
 
 		// Message
 		console.log('Starting to fetch threads'.blue);
@@ -49,7 +49,7 @@ function AFScraper(){
 				// Testing existence of index
 				if(json_list[self.num_processes] !== undefined){
 					// console.log('debug:: '.blue+'Reallocating process');
-					new Thread(json_list[self.num_processes].url, output_directory, 'test', update_processes);
+					new Thread(json_list[self.num_processes].url, output_directory, keywords, update_processes);
 				}
 
 			}
