@@ -12,13 +12,13 @@
 // Dependancies
 //-------------
 var fs = require('fs');
-var url_getter = require('./URLGetter.js');
+var url_getter = require('../tools/URLGetter.js');
 var cheerio = require('cheerio');
 var Post = require('./Post.js');
 
 // Main Class
 //------------
-function Thread(thread, output_directory, callback){
+function Thread(url, output_directory, callback){
 
 
 	// Object Configuration
@@ -37,9 +37,9 @@ function Thread(thread, output_directory, callback){
 	this.post_content_path = 'p.aff_contenu';
 
 	// Properties
-	this.base_url = thread.url;
-	this.num_posts = thread.posts;
-	this.num_authors = thread.authors;
+	this.base_url = url;
+	this.num_posts = false;
+	this.num_authors = false;
 
 	this.hasPagination = false;
 	this.nextPage = false;

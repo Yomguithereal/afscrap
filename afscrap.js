@@ -15,7 +15,7 @@
 var fs = require('fs');
 var CLTool = require('node-commandline');
 var AFScraper = require('./model/AFScraper.js');
-var Config = require('./model/Confgi statuigLoader.js');
+var Config = require('./tools/ConfigLoader.js');
 
 // Main Class
 //------------
@@ -39,11 +39,12 @@ function ArgvParser(){
 	}
 
 
-	AFScraper.fetchThreads(Config.list, Config.output_directory);
+	// AFScraper.fetchThreads(Config.list, Config.output_directory);
+	AFScraper.fetchForum('http://www.aufeminin.com/forum/show1_matern1_1');
 	
 }
 
 
 // Launching Process
 //------------
-module.exports = new ArgvParser();
+ArgvParser();

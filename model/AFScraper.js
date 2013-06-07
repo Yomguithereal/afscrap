@@ -17,7 +17,15 @@ var Thread = require('./Thread.js');
 //------------
 function AFScraper(){
 
-	// Methods
+	// Object Configuration
+	this.max_pile = 3;
+
+	// Looping through a forum to get back the url
+	this.fetchForum = function(forum_url, output_directory){
+		console.log('tadn');
+	}
+
+	// Looping through threads to get back
 	this.fetchThreads = function(json_list, output_directory){
 
 		// Looping through the list
