@@ -30,7 +30,7 @@ function AFScraper(){
 
 		// Looping through the list
 		json_list.forEach(function(thread){
-			new Thread(thread, output_directory);
+			new Thread(thread.url, output_directory);
 		});
 		// new Thread(json_list[0], output_directory);
 	}

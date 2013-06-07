@@ -51,8 +51,10 @@ function URLGetter(){
 				}
 			}
 
+			// 
+
 			// Sending Data
-			callback(body);
+			callback(body, response.statusCode);
 
 		});
 	}

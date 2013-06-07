@@ -40,7 +40,7 @@ function ArgvParser(){
 
 
 	// AFScraper.fetchThreads(Config.list, Config.output_directory);
-	AFScraper.fetchForum('http://www.aufeminin.com/forum/show1_matern1_1');
+	// AFScraper.fetchForum('http://www.aufeminin.com/forum/show1_matern1_1');
 	
 }
 
