@@ -19,7 +19,7 @@ var Post = require('./Post.js');
 
 // Main Class
 //------------
-function Thread(url, output_directory, callback){
+function Thread(url, output_directory, keywords, callback){
 
 
 	// Object Configuration
@@ -170,6 +170,12 @@ function Thread(url, output_directory, callback){
 			if(err){
 				console.log(('Error outputting '+self.base_url+' thread.').red);
 			}
+
+			// Trigerring callback
+			callback();
+
+			// Releasing Memory
+			delete this;
 		});
 
 
