@@ -12,6 +12,7 @@
 // Dependancies
 //-------------
 var fs = require('fs');
+var colors = require('colors');
 var url_getter = require('../tools/URLGetter.js');
 var cheerio = require('cheerio');
 var AFHelper = require('./AFHelper.js');
@@ -46,7 +47,7 @@ function Forum(url, output_directory, max_date, callback){
 	this.backEnough = false;
 	this.next_page_url = false;
 	this.current_page = 1;
-	console.log('Getting :: '+this.base_url);
+	console.log('Getting :: '.blue+this.base_url);
 
 
 	// Base Loop
@@ -79,7 +80,7 @@ function Forum(url, output_directory, max_date, callback){
 			}
 
 			// Going through pagination
-			console.log('Getting :: '+self.next_page_url);
+			console.log('Getting :: '.blue+self.next_page_url);
 			self.loop_through_forum(self.next_page_url, false);
 
 		});
@@ -132,7 +133,7 @@ function Forum(url, output_directory, max_date, callback){
 	this.output = function(){
 
 		// Logging
-		console.log("Outputting...");
+		console.log("Outputting...".green);
 
 		// Writing to file
 		var filename = output_directory+'/'+this.name+"_"+this.pages_to_visit.length+'.json';
@@ -140,7 +141,7 @@ function Forum(url, output_directory, max_date, callback){
 		// Writing
 		fs.writeFile(filename, JSON.stringify(this.pages_to_visit), function(err){
 			if(err){
-				console.log('Error outputting '+self.base_url+' forum.');
+				console.log('Error outputting '+self.base_url+' forum.'.red);
 			}
 		});
 	}

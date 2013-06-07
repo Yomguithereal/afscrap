@@ -11,6 +11,7 @@
 
 // Dependancies
 //-------------
+var colors = require('colors');
 var Forum = require('./Forum.js');
 var Thread = require('./Thread.js');
 
@@ -23,11 +24,18 @@ function AFScraper(){
 
 	// Looping through a forum to get back the threadsnpo
 	this.fetchForum = function(forum_url, output_directory){
+
+		// Message
+		console.log('Starting to fetch forum :: '.blue+forum_url);
+
 		new Forum(forum_url, output_directory);
 	}
 
 	// Looping through threads to get back
 	this.fetchThreads = function(json_list, output_directory){
+
+		// Message
+		console.log('Starting to fetch threads ::'.blue);
 
 		// Looping through the list
 		json_list.forEach(function(thread){
