@@ -35,7 +35,7 @@ function AFScraper(){
 	this.fetchThreads = function(json_list, output_directory){
 
 		// Message
-		console.log('Starting to fetch threads ::'.blue);
+		console.log('Starting to fetch threads'.blue);
 
 		// Looping through the list
 		json_list.forEach(function(thread){

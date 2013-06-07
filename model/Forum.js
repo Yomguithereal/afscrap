@@ -141,7 +141,7 @@ function Forum(url, output_directory, max_date, callback){
 		// Writing
 		fs.writeFile(filename, JSON.stringify(this.pages_to_visit), function(err){
 			if(err){
-				console.log('Error outputting '+self.base_url+' forum.'.red);
+				console.log(('Error outputting '+self.base_url+' forum.').red);
 			}
 		});
 	}

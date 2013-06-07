@@ -12,6 +12,7 @@
 // Dependancies
 //-------------
 var fs = require('fs');
+var colors = require('colors');
 var url_getter = require('../tools/URLGetter.js');
 var cheerio = require('cheerio');
 var Post = require('./Post.js');
@@ -149,7 +150,7 @@ function Thread(url, output_directory, callback){
 	this.output = function(){
 
 		// Async to text file
-		console.log('Outputting '+self.base_url+' thread.');
+		console.log('Outputting '.green+self.base_url+' thread.');
 
 		// Formatting
 		var thread_output = {
@@ -167,7 +168,7 @@ function Thread(url, output_directory, callback){
 		// Writing
 		fs.writeFile(filename, JSON.stringify(thread_output), function(err){
 			if(err){
-				console.log('Error outputting '+self.base_url+' thread.');
+				console.log(('Error outputting '+self.base_url+' thread.').red);
 			}
 		});
 
