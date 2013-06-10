@@ -30,7 +30,7 @@ var Config = require('./tools/ConfigLoader.js');
 function ArgvParser(){
 
 	// Default values
-	this.output_directory = './output';
+	this.output_directory = './forum_lists';
 
 	// Initializing the tool
 	program
