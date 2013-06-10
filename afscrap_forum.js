@@ -34,7 +34,7 @@ function ArgvParser(){
 
 	// Initializing the tool
 	program
-		.version('0.0.1')
+		.version('1.0')
 		.usage('')
 		.option('-o, --output <s>', 'output directory written in node flavor (default : ./output)')
 		.option('-u, --url <s>', 'url of forum to crawl')
@@ -60,7 +60,6 @@ function ArgvParser(){
 		// The output directory does not exist, we create it
 		fs.mkdirSync(this.output_directory);
 	}
-
 
 	// Launching process
 	// TEST : http://www.aufeminin.com/forum/show1_matern1_1/grossesse/grossesse-attendre-bebe.html
