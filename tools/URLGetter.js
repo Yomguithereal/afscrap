@@ -29,7 +29,7 @@ function URLGetter(){
 		// Sleeping for random between 0 - 2 seconds
 		var seconds = Math.floor((Math.random()*3))*1000;
 		var milliseconds = Math.floor((Math.random()*1000));
-		this.sleep(seconds+milliseconds);
+		this.usleep(seconds+milliseconds);
 
 		// Using request
 		request(url, function(error, response, body){
@@ -65,7 +65,7 @@ function URLGetter(){
 	}
 
 	// Timeout function
-	this.sleep = function(milliseconds){
+	this.usleep = function(milliseconds){
 		var startTime = new Date().getTime();
 		while(new Date().getTime() < startTime + milliseconds);
 
