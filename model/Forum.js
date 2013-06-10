@@ -34,10 +34,10 @@ function Forum(url, output_directory, max_date, callback){
 
 
 	// Properties
-	var current_date = new Date();
+	this.current_date = new Date();
 
 	this.date_to_reach = new Date();
-	this.date_to_reach.setMonth(current_date.getMonth() - 12);
+	this.date_to_reach.setMonth(this.current_date.getMonth() - 12);
 	this.base_url = url;
 	this.pages_to_visit = [];
 	this.name = false;
@@ -137,24 +137,24 @@ function Forum(url, output_directory, max_date, callback){
 		// Writing to file
 		var filename = output_directory+'/'+this.name+"_"+this.pages_to_visit.length+'.json';
 
+		// Compiling some metadatas
+		var json = {
+			url : this.base_url,
+			nb_threads : this.pages_to_visit.length,
+			start_date : AFHelper.outputDate(this.current_date),
+			end_date : AFHelper.outputDate(this.date_to_reach),
+			threads : this.pages_to_visit
+		};
+
 		// Writing
-		fs.writeFile(filename, JSON.stringify(this.pages_to_visit), function(err){
+		fs.writeFile(filename, JSON.stringify(json), function(err){
 			if(err){
 				console.log(('Error outputting '+self.base_url+' forum.').red);
 			}
+			console.log('Process Finished'.green);
+			console.log('Get the results in :'.blue+filename);
 		});
 	}
-}
-
-// Tests
-//------
-function test(){
-	new Forum('http://www.aufeminin.com/forum/show1_matern1_1/grossesse/grossesse-attendre-bebe.html', '../output/');
-}
-
-// Launching on main
-if(require.main === module){
-	test();
 }
 
 
