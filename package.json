@@ -14,7 +14,8 @@
   "dependencies": {
     "request" : "*",
     "cheerio" : "*",
-    "colors" : "*"
+    "colors" : "*",
+    "commander" : "*"
   },
   "engines" : {
     "node" : ">=0.10.9"
