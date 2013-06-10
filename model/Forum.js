@@ -72,7 +72,7 @@ function Forum(url, output_directory, max_date, callback){
 
 			// Outputting if we are back enough in time
 			if(self.backEnough || code == 404){
-				
+
 				// Outputting
 				self.output();
 				return false;
@@ -120,11 +120,19 @@ function Forum(url, output_directory, max_date, callback){
 
 			// Getting the url
 			var url = $(this).find('.aff_message > a').attr('href');
-			if(url !== undefined){
-				self.pages_to_visit.push({
-					'url' : url
-				});
+			if(url === undefined){
+
+				// De-obfuscating threads with no replies
+				var encrypted_link = $(this).find('.aff_message > script').text();
+				encrypted_link = encrypted_link.replace("jsdchtml3('", "").replace("');", "");
+				url = AFHelper.deobfuscate(encrypted_link).match(/href="(.+)">/)[1];
 			}
+
+			// Pushing to array
+			self.pages_to_visit.push({
+				'url' : url
+			});
+
 		});
 	}
 

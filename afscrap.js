@@ -21,7 +21,7 @@ var Config = require('./tools/ConfigLoader.js');
 // Main Class
 //------------
 function ArgvParser(){
-	
+
 	// Initializing the tool
 	var Commands = new CLTool.CommandLine('main');
 
