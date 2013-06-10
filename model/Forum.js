@@ -49,12 +49,13 @@ function Forum(url, output_directory, max_date, callback){
 	console.log('Getting :: '.blue+this.base_url);
 
 
+
 	// Base Loop
 	//------------
 	this.loop_through_forum = function(url, isFirstPage){
 
 		url_getter.fetch(url, function(data, code){
-
+			
 			// Loading Cheerio
 			$ = cheerio.load(data);
 
