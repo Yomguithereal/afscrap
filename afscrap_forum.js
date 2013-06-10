@@ -10,12 +10,12 @@
 |	Version : 1.0
 */
 
-/*
-Commands :
---------
--u / --url : url of forum to crawl
--o / --output : path to output directory
-*/
+
+// Commands
+//---------
+// -u / --url : url of forum to crawl
+// -o / --output : path to output directory
+
 
 // Dependancies
 //-------------
