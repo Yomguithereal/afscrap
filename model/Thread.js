@@ -20,7 +20,6 @@ var Post = require('./Post.js');
 //------------
 function Thread(url, keywords, output_directory, index, callback){
 
-
 	// Object Configuration
 	//---------------------
 
@@ -79,7 +78,7 @@ function Thread(url, keywords, output_directory, index, callback){
 			if(self.isLastPage){
 
 				if(self.isRelevant){
-					self.output(function(){callback(index);});
+					self.output(index);
 				}
 				else{
 					callback(index);
@@ -177,7 +176,7 @@ function Thread(url, keywords, output_directory, index, callback){
 	}
 
 	// Outputting
-	this.output = function(callback){
+	this.output = function(index){
 
 		// Async to text file
 		console.log('Outputting relevant thread :: '.green+self.base_url);
@@ -202,7 +201,7 @@ function Thread(url, keywords, output_directory, index, callback){
 			}
 
 			// Trigerring callback
-			callback();
+			callback(index);
 
 			// Releasing Memory
 			delete this;

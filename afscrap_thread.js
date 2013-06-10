@@ -26,7 +26,10 @@ function ArgvParser(){
 	// TODO : Gérer les arguments de la commandline
 	// Lauching process
 
+	// MAX PILE OVERRIDE
+
 	// Test sur un forum en particulier
+	var json_path = './config/forum_test.json';
 	Config.load({variable : 'list', file : './config/forum_test.json'});
 	Config.output_directory = './output';
 
@@ -37,7 +40,7 @@ function ArgvParser(){
 		fs.mkdirSync(Config.output_directory);
 	}
 
-	AFScraper.fetchThreads(Config.list.threads, ['cesarienne', 'césarienne'], Config.output_directory);
+	AFScraper.fetchThreads(Config.list.threads, ['cesarienne', 'césarienne'], Config.output_directory, json_path);
 	
 }
 
