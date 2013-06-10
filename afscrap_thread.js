@@ -12,6 +12,9 @@
 
 // Commands
 //---------
+// -l / --list : url list path
+// -o / --output : output directory
+// -k / --keywords : keywords path
 // -p / --processes : number of processes
 
 
