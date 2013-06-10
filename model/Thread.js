@@ -205,21 +205,7 @@ function Thread(url, keywords, output_directory, index, callback){
 
 			// Releasing Memory
 			delete this;
-		});
-
-
-		
-	}
-
-	// Dumping
-	this.dump = function(){
-
-		// To remove
-		console.log('');
-		console.log(self.base_url);
-		console.log('pagination? :: '+self.hasPagination);
-		console.log('last_page? :: '+self.isLastPage);
-		console.log('');
+		});	
 	}
 }
 

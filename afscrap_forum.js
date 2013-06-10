@@ -36,8 +36,8 @@ function ArgvParser(){
 	program
 		.version('1.0')
 		.usage('')
-		.option('-o, --output <s>', 'output directory written in node flavor (default : ./output)')
-		.option('-u, --url <s>', 'url of forum to crawl')
+		.option('-o, --output <output-directory>', 'output directory written in node flavor (default : ./output)')
+		.option('-u, --url <forum-to-crawl>', 'url of forum to crawl')
 		.parse(process.argv);
 
 	// Checking forum url

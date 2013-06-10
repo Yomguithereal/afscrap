@@ -37,6 +37,7 @@ function AFScraper(){
 	this.fetchForum = function(forum_url, output_directory){
 
 		// Message
+		console.log('');
 		console.log('Starting to fetch forum :: '.blue+forum_url);
 
 		new Forum(forum_url, output_directory, false, function(){
@@ -48,6 +49,7 @@ function AFScraper(){
 	this.fetchThreads = function(json_list, keywords, output_directory, json_path){
 
 		// Message
+		console.log('');
 		console.log('Starting to fetch threads'.blue);
 
 		// Checking cache
@@ -82,6 +84,7 @@ function AFScraper(){
 				console.log("Process Finished".green);
 				console.log('Get the results in : '.blue+output_directory);
 				console.log(ProcessTimer.elapsed_time());
+				console.log('');
 			}
 		}
 

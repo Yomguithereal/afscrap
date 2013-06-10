@@ -164,6 +164,7 @@ function Forum(url, output_directory, max_date, callback){
 			// Announcing end
 			console.log('Process Finished'.green);
 			console.log('Get the results in : '.blue+filename);
+			console.log('');
 
 			// Triggering Callback
 			callback();
