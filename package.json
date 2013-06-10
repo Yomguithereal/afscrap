@@ -12,7 +12,6 @@
     "url": "git://github.com/Yomguithereal/afscrap.git"
   },
   "dependencies": {
-    "node-commandline" : "*",
     "request" : "*",
     "cheerio" : "*",
     "colors" : "*"
