@@ -28,6 +28,10 @@ function Thread(url, output_directory, keywords, callback){
 	var $ = false;
 	this.by_author_string = /par : |da: |by:/;
 
+	// Creating the keyword regex
+	var relevance_check_string = keywords.join('|');
+	this.relevance_check = new RegExp(relevance_check_string, 'i');
+
 	// Paths
 	this.pagination_path = 'table.aff_navHigh';
 	this.post_path = 'table.aff_topicList';
@@ -44,6 +48,7 @@ function Thread(url, output_directory, keywords, callback){
 	this.hasPagination = false;
 	this.nextPage = false;
 	this.isLastPage = false;
+	this.isRelevant = false;
 	this.current_salt = false;
 	this.posts = [];
 
@@ -72,7 +77,13 @@ function Thread(url, output_directory, keywords, callback){
 
 			// If thread has only one page
 			if(self.isLastPage){
-				self.output();
+
+				if(self.isRelevant){
+					self.output(function(){callback();});
+				}
+				else{
+					callback();
+				}
 				return false;
 			}
 
@@ -115,6 +126,18 @@ function Thread(url, output_directory, keywords, callback){
 		}
 	}
 
+	// Checking thread relevance
+	this.checkRelevance = function(text){
+
+		// Preventing the execution of unnecessary regexps.
+		if(this.isRelevant){return false;}
+
+		// Searching for keywords
+		if(text.search(this.relevance_check) > -1){
+			this.isRelevant = true;
+		}
+	}
+
 	// Getting basic post information
 	this.getMainPost = function(){
 
@@ -126,6 +149,10 @@ function Thread(url, output_directory, keywords, callback){
 			,text : $(self.post_content_path).eq(0).html()
 			,date_salt : self.current_salt
 		});
+
+		// Checking relevance
+		self.checkRelevance(MainPost.text);
+
 		self.posts.push(MainPost);
 	}
 
@@ -141,15 +168,19 @@ function Thread(url, output_directory, keywords, callback){
 				,text : $(this).find(self.post_content_path).eq(0).html()
 				,date_salt : self.current_salt
 			});
+
+			// Checking relevance
+			self.checkRelevance(GenericPost.text);
+
 			self.posts.push(GenericPost);
 		});
 	}
 
 	// Outputting
-	this.output = function(){
+	this.output = function(callback){
 
 		// Async to text file
-		console.log('Outputting '.green+self.base_url+' thread.');
+		console.log('Outputting relevant thread ::'.green+self.base_url);
 
 		// Formatting
 		var thread_output = {

@@ -37,7 +37,7 @@ function ArgvParser(){
 		fs.mkdirSync(Config.output_directory);
 	}
 
-	AFScraper.fetchThreads(Config.list.threads, 'test', Config.output_directory);
+	AFScraper.fetchThreads(Config.list.threads, ['cesarienne', 'césarienne'], Config.output_directory);
 	
 }
 
