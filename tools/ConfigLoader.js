@@ -22,6 +22,12 @@ function ConfigLoader(){
 	// Loading a configuration file
 	this.load = function(object){
 
+		// Checking existence of configuration file
+		if(!fs.existsSync(object.file)){
+			console.log(('Error :: The file you are trying to load ('+object.file+') does not exist.').red);
+			process.exit();
+		}
+
 		// Parsing JSON
 		var json = fs.readFileSync(object.file);
 

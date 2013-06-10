@@ -20,6 +20,9 @@ var Config = require('./tools/ConfigLoader.js');
 // Main Class
 //------------
 function ArgvParser(){
+	Config.load({'variable' : 'test', 'file' : './test/ef.json'});
+	console.log(Config.test);
+	return false;
 
 	// Initializing the tool
 

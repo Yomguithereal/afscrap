@@ -52,7 +52,7 @@ function AFHelper(){
 		return date+'-'+month+'-'+dateObject.getFullYear();
 	}
 
-	// AF' obfuscating function
+	// AF's obfuscating function
 	function jsdchtml3(s){
 		if (!jsdchtml3.p) {
 			String.prototype.afca = String.prototype['ch' + 'ar' + 'At'];
