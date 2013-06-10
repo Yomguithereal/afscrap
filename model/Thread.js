@@ -18,7 +18,7 @@ var Post = require('./Post.js');
 
 // Main Class
 //------------
-function Thread(url, output_directory, keywords, callback){
+function Thread(url, keywords, output_directory, callback){
 
 
 	// Object Configuration
@@ -180,7 +180,7 @@ function Thread(url, output_directory, keywords, callback){
 	this.output = function(callback){
 
 		// Async to text file
-		console.log('Outputting relevant thread ::'.green+self.base_url);
+		console.log('Outputting relevant thread :: '.green+self.base_url);
 
 		// Formatting
 		var thread_output = {

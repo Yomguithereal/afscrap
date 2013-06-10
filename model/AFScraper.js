@@ -11,6 +11,7 @@
 
 // Dependancies
 //-------------
+var fs = require('fs');
 var Forum = require('./Forum.js');
 var Thread = require('./Thread.js');
 var ProcessTimer = require('../tools/ProcessTimer.js');
@@ -23,6 +24,7 @@ function AFScraper(){
 	var self = this;
 	this.max_pile = 3;
 	this.num_processes = -1;
+	this.cache_directory = './cache';
 
 	// Looping through a forum to get back the threadsnpo
 	this.fetchForum = function(forum_url, output_directory){
@@ -38,6 +40,9 @@ function AFScraper(){
 	// Looping through threads to get back
 	this.fetchThreads = function(json_list, keywords, output_directory){
 
+		// Checking cache
+		this.check_cache();
+
 		// Message
 		console.log('Starting to fetch threads'.blue);
 
@@ -51,7 +56,7 @@ function AFScraper(){
 				// Testing existence of index
 				if(json_list[self.num_processes] !== undefined){
 					// console.log('debug:: '.blue+'Reallocating process');
-					new Thread(json_list[self.num_processes].url, output_directory, keywords, update_processes);
+					new Thread(json_list[self.num_processes].url, keywords, output_directory, update_processes);
 				}
 
 				// Calling the end if this is the case
@@ -62,6 +67,18 @@ function AFScraper(){
 			}
 
 			update_processes();
+		}
+	}
+
+	// Function to create cache directory
+	this.check_cache = function(){
+
+		// Checking existence of cache dir.
+		if(!fs.existsSync(this.cache_directory)){
+				
+			// The cache directory does not exist, we create it
+			console.log('Creating cache directory'.blue);
+			fs.mkdirSync(this.cache_directory);
 		}
 	}
 }
