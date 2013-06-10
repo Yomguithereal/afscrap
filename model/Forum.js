@@ -126,7 +126,7 @@ function Forum(url, output_directory, max_date, callback){
 				// De-obfuscating threads with no replies
 				var encrypted_link = $(this).find('.aff_message > script').text();
 				encrypted_link = encrypted_link.replace("jsdchtml3('", "").replace("');", "");
-				url = AFHelper.deobfuscate(encrypted_link).match(/href="(.+)">/)[1];
+				url = AFHelper.deobfuscate(encrypted_link).match(/href="(.+)"/)[1];
 			}
 
 			// Pushing to array

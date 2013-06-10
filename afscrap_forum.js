@@ -31,21 +31,27 @@ function ArgvParser(){
 
 	// Default values
 	this.output_directory = './output';
-	this.forum_url = false;
 
 	// Initializing the tool
 	program
 		.version('0.0.1')
 		.usage('')
-		.option('-o, --output <n>', 'output directory written in node flavor (default : ./output)')
-		.option('-u, --url <n>', 'url of forum to crawl')
+		.option('-o, --output <s>', 'output directory written in node flavor (default : ./output)')
+		.option('-u, --url <s>', 'url of forum to crawl')
 		.parse(process.argv);
 
 	// Checking forum url
+	if(program.url === undefined){
+		console.log('Error :: Forum url is not given.'.red);
+		return false;
+	}
+	else{
+		this.forum_url = program.url;
+	}
 
 	// Setting output directory
 	if(program.output !== undefined){
-		this.output_directory = program.output_directory;
+		this.output_directory = program.output;
 	}
 
 	// Checking existence of output dir.
@@ -56,9 +62,9 @@ function ArgvParser(){
 	}
 
 
-
+	// Launching process
 	// TEST : http://www.aufeminin.com/forum/show1_matern1_1/grossesse/grossesse-attendre-bebe.html
-	// AFScraper.fetchForum('http://www.aufeminin.com/forum/show1_matern1_1/grossesse/grossesse-attendre-bebe.html', this.output_directory);
+	AFScraper.fetchForum(this.forum_url, this.output_directory);
 	
 }
 
