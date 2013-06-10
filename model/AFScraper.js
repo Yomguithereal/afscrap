@@ -11,7 +11,6 @@
 
 // Dependancies
 //-------------
-var colors = require('colors');
 var Forum = require('./Forum.js');
 var Thread = require('./Thread.js');
 

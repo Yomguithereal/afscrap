@@ -13,6 +13,7 @@
 // Deoendancies
 //-------------
 var fs = require('fs');
+var colors = require('colors');
 var CLTool = require('node-commandline');
 var AFScraper = require('./model/AFScraper.js');
 var Config = require('./tools/ConfigLoader.js');

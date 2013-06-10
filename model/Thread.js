@@ -12,7 +12,6 @@
 // Dependancies
 //-------------
 var fs = require('fs');
-var colors = require('colors');
 var url_getter = require('../tools/URLGetter.js');
 var cheerio = require('cheerio');
 var Post = require('./Post.js');

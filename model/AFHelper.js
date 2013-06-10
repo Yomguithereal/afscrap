@@ -31,20 +31,25 @@ function AFHelper(){
 
 		// Selecting return
 		if(!return_object){
-
-			// Formatting Date
-			var date = d.getDate();
-			if(date.toString().length === 1){ date = "0"+date;}
-
-			// Formatting Month
-			var month = d.getMonth()+1;
-			if(month.toString().length === 1){ month = "0"+month;}
-
-			return date+'-'+month+'-'+d.getFullYear();
+			return this.outputDate(d);			
 		}
 		else{
 			return d;
 		}
+	}
+
+	// Date Outputting
+	this.outputDate = function(dateObject){
+
+		// Formatting Date
+		var date = dateObject.getDate();
+		if(date.toString().length === 1){ date = "0"+date;}
+
+		// Formatting Month
+		var month = dateObject.getMonth()+1;
+		if(month.toString().length === 1){ month = "0"+month;}
+
+		return date+'-'+month+'-'+dateObject.getFullYear();
 	}
 
 }
