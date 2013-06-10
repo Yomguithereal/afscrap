@@ -26,7 +26,7 @@ function AFScraper(){
 	this.num_processes = -1;
 	this.cache_directory = './cache';
 
-	// Looping through a forum to get back the threadsnpo
+	// Looping through a forum to get back the threads list
 	this.fetchForum = function(forum_url, output_directory){
 
 		// Message
@@ -46,25 +46,25 @@ function AFScraper(){
 		// Message
 		console.log('Starting to fetch threads'.blue);
 
+		// Recursive worker
+		function update_processes(index){
+			self.num_processes += 1;
+
+			// Testing existence of index
+			if(json_list[self.num_processes] !== undefined){
+				// console.log('debug:: '.blue+'Reallocating process');
+				new Thread(json_list[self.num_processes].url, keywords, output_directory, self.num_processes, update_processes);
+			}
+
+			// Calling the end if this is the case
+			if(index == json_list.length - 1){
+				console.log("Process Finished".green);
+				console.log(ProcessTimer.elapsed_time());
+			}
+		}
+
 		// Looping throught the list while respecting pile
 		for(var i=1; i <= this.max_pile; i++){
-
-			// Recursive
-			function update_processes(){
-				self.num_processes += 1;
-
-				// Testing existence of index
-				if(json_list[self.num_processes] !== undefined){
-					// console.log('debug:: '.blue+'Reallocating process');
-					new Thread(json_list[self.num_processes].url, keywords, output_directory, update_processes);
-				}
-
-				// Calling the end if this is the case
-				if(self.num_processes == json_list.length + self.max_pile - 1){
-					console.log("Process Finished".green);
-					console.log(ProcessTimer.elapsed_time());
-				}
-			}
 
 			update_processes();
 		}
@@ -79,6 +79,7 @@ function AFScraper(){
 			// The cache directory does not exist, we create it
 			console.log('Creating cache directory'.blue);
 			fs.mkdirSync(this.cache_directory);
+			return false;
 		}
 	}
 }

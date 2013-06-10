@@ -18,7 +18,7 @@ var Post = require('./Post.js');
 
 // Main Class
 //------------
-function Thread(url, keywords, output_directory, callback){
+function Thread(url, keywords, output_directory, index, callback){
 
 
 	// Object Configuration
@@ -79,10 +79,10 @@ function Thread(url, keywords, output_directory, callback){
 			if(self.isLastPage){
 
 				if(self.isRelevant){
-					self.output(function(){callback();});
+					self.output(function(){callback(index);});
 				}
 				else{
-					callback();
+					callback(index);
 				}
 				return false;
 			}
