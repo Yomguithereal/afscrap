@@ -72,7 +72,7 @@ function Forum(url, output_directory, max_date, callback){
 			self.getThreads();
 
 			// Outputting if we are back enough in time
-			if(!self.backEnough || code == 404){
+			if(self.backEnough || code == 404){
 
 				// Outputting
 				self.output();
