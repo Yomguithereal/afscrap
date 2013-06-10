@@ -10,7 +10,7 @@
 |	Version : 1.0
 */
 
-// Deoendancies
+// Dependancies
 //-------------
 var fs = require('fs');
 var colors = require('colors');
@@ -20,9 +20,6 @@ var Config = require('./tools/ConfigLoader.js');
 // Main Class
 //------------
 function ArgvParser(){
-	Config.load({'variable' : 'test', 'file' : './test/ef.json'});
-	console.log(Config.test);
-	return false;
 
 	// Initializing the tool
 
@@ -40,8 +37,7 @@ function ArgvParser(){
 		fs.mkdirSync(Config.output_directory);
 	}
 
-	// AFScraper.fetchThreads(Config.list.threads, 'test', Config.output_directory);
-	AFScraper.fetchForum('http://www.aufeminin.com/forum/show1_matern1_1/grossesse/grossesse-attendre-bebe.html', Config.output_directory);
+	AFScraper.fetchThreads(Config.list.threads, 'test', Config.output_directory);
 	
 }
 

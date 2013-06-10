@@ -13,6 +13,7 @@
 //-------------
 var Forum = require('./Forum.js');
 var Thread = require('./Thread.js');
+var ProcessTimer = require('../tools/ProcessTimer.js');
 
 // Main Class
 //------------
@@ -29,7 +30,9 @@ function AFScraper(){
 		// Message
 		console.log('Starting to fetch forum :: '.blue+forum_url);
 
-		new Forum(forum_url, output_directory);
+		new Forum(forum_url, output_directory, false, function(){
+			 console.log(ProcessTimer.elapsed_time());
+		});
 	}
 
 	// Looping through threads to get back
@@ -51,17 +54,15 @@ function AFScraper(){
 					new Thread(json_list[self.num_processes].url, output_directory, keywords, update_processes);
 				}
 
+				// Calling the end if this is the case
+				if(self.num_processes == json_list.length + self.max_pile - 1){
+					console.log("Process Finished".green);
+					console.log(ProcessTimer.elapsed_time());
+				}
 			}
 
 			update_processes();
 		}
-
-
-		// Looping through the list
-		// json_list.forEach(function(thread){
-		// 	new Thread(thread.url, output_directory);
-		// });
-
 	}
 }
 

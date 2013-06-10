@@ -17,7 +17,7 @@ Commands :
 -o / --output : path to output directory
 */
 
-// Deoendancies
+// Dependancies
 //-------------
 var fs = require('fs');
 var program = require('commander');

@@ -72,7 +72,7 @@ function Forum(url, output_directory, max_date, callback){
 			self.getThreads();
 
 			// Outputting if we are back enough in time
-			if(self.backEnough || code == 404){
+			if(!self.backEnough || code == 404){
 
 				// Outputting
 				self.output();
@@ -160,8 +160,13 @@ function Forum(url, output_directory, max_date, callback){
 			if(err){
 				console.log(('Error outputting '+self.base_url+' forum.').red);
 			}
+
+			// Announcing end
 			console.log('Process Finished'.green);
 			console.log('Get the results in :'.blue+filename);
+
+			// Triggering Callback
+			callback();
 		});
 	}
 }
