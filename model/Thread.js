@@ -58,6 +58,12 @@ function Thread(url, keywords, output_format, output_directory, index, callback)
 			// Loading Cheerio
 			$ = cheerio.load(data);
 
+			// Checking if we are taken for a robot
+			if($('div.captcha').length > 0){
+				console.log('Error :: Aufeminin\'s limit reached.'.red);
+				process.exit();
+			}
+
 			// Checking the existence of a pagination
 			self.checkPagination();
 
