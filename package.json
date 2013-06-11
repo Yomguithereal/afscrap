@@ -16,7 +16,7 @@
     "cheerio" : "*",
     "colors" : "*",
     "commander" : "*",
-    "mongous" : "*"
+    "mongoose" : "*"
   },
   "engines" : {
     "node" : ">=0.10.9"

@@ -41,16 +41,12 @@ function Thread(url, keywords, output_format, output_directory, index, callback)
 
 	// Properties
 	this.base_url = url;
-	this.num_posts = false;
-	this.num_authors = false;
-
 	this.hasPagination = false;
 	this.nextPage = false;
 	this.isLastPage = false;
 	this.isRelevant = false;
 	this.current_salt = false;
 	this.posts = [];
-
 
 
 	// Base Loop
@@ -187,8 +183,6 @@ function Thread(url, keywords, output_format, output_directory, index, callback)
 			'title' : this.posts[0].title,
 			'author' : this.posts[0].author,
 			'date' : this.posts[0].date,
-			'num_posts' : this.num_posts,
-			'num_authors' : this.num_authors,
 			'posts' : this.posts
 		}
 
@@ -233,10 +227,16 @@ function Thread(url, keywords, output_format, output_directory, index, callback)
 
 	// Outputting to mongo
 	this.output_to_mongo = function(thread_output, callback){
-		var DB = output_directory;
-		DB.save(thread_output);
+		
+		// To database
+		var db_thread = new output_directory({data : thread_output});
+		db_thread.save(function(err){
+			if(err){
+				console.log(('Error inserting '+self.base_url+' thread in mongo database.').red);
+			}
 
-		callback();		
+			callback();	
+		});	
 	}
 }
 

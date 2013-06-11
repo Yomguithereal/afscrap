@@ -34,7 +34,7 @@ function ArgvParser(){
 
 	// Initializing the tool
 	program
-		.version('1.0')
+		.version('AFScrap Forum List Fetcher 1.0'.blue)
 		.usage('')
 		.option('-o, --output <output-directory>', 'output directory written in node flavor (default : ./output)')
 		.option('-u, --url <forum-to-crawl>', 'url of forum to crawl')
