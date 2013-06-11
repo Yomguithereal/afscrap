@@ -28,12 +28,12 @@ var colors = require('colors');
 function ArgvParser(){
 
 	// Default values
-	this.output_directory = './output';
+	this.output_directory = './output-text';
 
 	// Initializing the tool
 	program
 		.version('1.0')
-		.option('-o, --output <output-directory>', 'output directory written in node flavor (default : ./output)')
+		.option('-o, --output <output-directory>', 'output directory written in node flavor (default : ./output-text)')
 		.parse(process.argv);
 
 	// Output directory override
