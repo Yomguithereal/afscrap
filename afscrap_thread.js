@@ -24,6 +24,8 @@
 var fs = require('fs');
 var colors = require('colors');
 var program = require('commander');
+var mongous = require('mongous').Mongous;
+var path = require('path');
 var AFScraper = require('./model/AFScraper.js');
 var Config = require('./tools/ConfigLoader.js');
 
@@ -34,8 +36,8 @@ function ArgvParser(){
 	// Default values
 	this.output_directory = './output';
 	this.keywords_path = './config/keywords.json';
-	this.formats = ['json', 'text'];
-	this.output_format = 'json';
+	this.formats = ['json', 'mongo'];
+	this.output_format = 'mongo';
 
 	// Initializing the tool
 	program
@@ -44,7 +46,7 @@ function ArgvParser(){
 		.option('-o, --output <output-directory>', 'output directory written in node flavor (default : ./output)')
 		.option('-k, --keywords <keywords-path>', 'keywords json file path (default : ./config.keywords.json')
 		.option('-p, --processes <processes-number>', 'number of processes (default : 6, max : 20)', parseInt)
-		.option('-f, --format <type>', "Output format [text] or [json]")
+		.option('-f, --format <type>', "Output format [mongo] or [json]")
 		.parse(process.argv);
 
 	// Url list
@@ -71,9 +73,22 @@ function ArgvParser(){
 	// Output format
 	if(program.format !== undefined){
 		if(this.formats.indexOf(program.format) == -1){
-			console.log('Error :: Format of output is not correct. [text] or [json]'.red);
+			console.log('Error :: Format of output is not correct. [mongo] or [json].'.red);
 			return false;
 		}
+
+		// If we want to ouput to mongo
+		if(program.format == 'mongo'){
+
+			// Connecting to database
+			var database_name = path.basename(program.list, '.json');
+			var DB = mongous(database_name+'.threads');
+			
+			// Passing to model
+			this.output_directory = DB;
+
+		}
+		this.output_format = program.format;
 	}
 
 	// Test sur un forum en particulier
@@ -82,14 +97,14 @@ function ArgvParser(){
 	Config.load({variable : 'keywords', file : this.keywords_path});
 
 	// Checking existence of output dir.
-	if(!fs.existsSync(this.output_directory)){
+	if(!fs.existsSync(this.output_directory) && this.output_format != 'mongo'){
 			
 		// The output directory does not exist, we create it
 		fs.mkdirSync(this.output_directory);
 	}
 
 	// Launching process
-	AFScraper.fetchThreads(Config.list.threads, Config.keywords, this.output_directory, json_path);
+	AFScraper.fetchThreads(Config.list.threads, Config.keywords, this.output_format, this.output_directory, json_path);
 	
 }
 

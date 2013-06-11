@@ -46,7 +46,7 @@ function AFScraper(){
 	}
 
 	// Looping through threads to get back
-	this.fetchThreads = function(json_list, keywords, output_directory, json_path){
+	this.fetchThreads = function(json_list, keywords, output_format, output_directory, json_path){
 
 		// Message
 		console.log('');
@@ -54,7 +54,6 @@ function AFScraper(){
 
 		// Checking cache
 		this.check_cache(json_path);
-
 
 		// Recursive worker
 		function update_processes(index){
@@ -67,8 +66,15 @@ function AFScraper(){
 
 			// Testing existence of index
 			if(json_list[self.num_processes] !== undefined){
-				// console.log('debug:: '.blue+'Reallocating process');
-				new Thread(json_list[self.num_processes].url, keywords, output_directory, self.num_processes, update_processes);
+
+				new Thread(
+					json_list[self.num_processes].url, 
+					keywords,
+					output_format, 
+					output_directory, 
+					self.num_processes, 
+					update_processes
+				);
 			}
 
 			// Writing cache
@@ -79,6 +85,11 @@ function AFScraper(){
 
 				// Deleting Cache
 				self.delete_cache();
+
+				// Closing connection to database
+				if(output_format == 'mongo'){
+					output_directory.disconnect();
+				}
 
 				// Announcing
 				console.log("Process Finished".green);

@@ -18,7 +18,7 @@ var Post = require('./Post.js');
 
 // Main Class
 //------------
-function Thread(url, keywords, output_directory, index, callback){
+function Thread(url, keywords, output_format, output_directory, index, callback){
 
 	// Object Configuration
 	//---------------------
@@ -192,6 +192,33 @@ function Thread(url, keywords, output_directory, index, callback){
 			'posts' : this.posts
 		}
 
+		// If we output to file or mongo
+		if(output_format == 'json'){
+			this.output_to_json(thread_output, function(){
+
+				// Triggering callback
+				callback(index);
+
+				// Releasing memory
+				delete self;
+			});
+		}
+		else if(output_format == 'mongo'){
+			this.output_to_mongo(thread_output, function(){
+
+				// Triggering callback
+				callback(index);
+
+				// Releasing memory
+				delete self;
+			});
+		}
+
+	}
+
+	// Outputting to file
+	this.output_to_json = function(thread_output, callback){
+
 		var filename = output_directory+'/'+escape(thread_output.title)+'_'+thread_output.date+'_'+thread_output.author;
 
 		// Writing
@@ -200,12 +227,16 @@ function Thread(url, keywords, output_directory, index, callback){
 				console.log(('Error outputting '+self.base_url+' thread.').red);
 			}
 
-			// Trigerring callback
-			callback(index);
-
-			// Releasing Memory
-			delete this;
+			callback();
 		});	
+	}
+
+	// Outputting to mongo
+	this.output_to_mongo = function(thread_output, callback){
+		var DB = output_directory;
+		DB.save(thread_output);
+
+		callback();		
 	}
 }
 
