@@ -40,7 +40,7 @@ function ArgvParser(){
 		.version('AFScrap Text Compiler 1.0'.blue)
 		.option('-o, --output <output-directory>', 'output directory written in node flavor (default : ./output-text)')
 		.option('-d, --database <database-name>', 'mongo database to compile to text')
-		.option('-p, --processes <processes-number>', 'number of processes (default : 6, max : 20)', parseInt)
+		.option('-p, --processes <processes-number>', 'number of processes (default : 1, max : 20)', parseInt)
 		.parse(process.argv);
 
 
@@ -85,3 +85,7 @@ function ArgvParser(){
 // Launching Process
 //------------
 ArgvParser();
+
+
+// name jj-mm-yy__auteur__titre__forum
+// then blocks;

@@ -16,7 +16,8 @@
     "cheerio" : "*",
     "colors" : "*",
     "commander" : "*",
-    "mongoose" : "*"
+    "mongoose" : "*",
+    "async" : "*"
   },
   "engines" : {
     "node" : ">=0.10.9"

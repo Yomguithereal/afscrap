@@ -1,8 +1,10 @@
-/strategy
 /output
 /output-text
 /node_modules
 /forum_lists
 /cache
+/logs
+/config/config.json
 TODO.txt
 *.cache
+*.bak

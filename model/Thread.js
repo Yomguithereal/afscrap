@@ -1,6 +1,6 @@
 /*
 | -------------------------------------------------------------------
-|  Thread Abstraction
+|  Thread Parser
 | -------------------------------------------------------------------
 |
 |
@@ -10,15 +10,19 @@
 */
 
 // Dependancies
-//-------------
+//=============
 var fs = require('fs');
-var url_getter = require('../tools/URLGetter.js');
+var fetcher = require('../tools/Fetcher');
 var cheerio = require('cheerio');
+var config = require('../tools/ConfigLoader');
 var Post = require('./Post.js');
+var log = require('../tools/Logger');
+var timer = require('../tools/Timer');
 
 // Main Class
-//------------
-function Thread(url, keywords, output_format, output_directory, index, callback){
+//===========
+function Thread(task, callback){
+
 
 	// Object Configuration
 	//---------------------
@@ -27,8 +31,11 @@ function Thread(url, keywords, output_format, output_directory, index, callback)
 	var $ = false;
 	this.by_author_string = /par : |da: |by:/;
 
+	var url = task.url;
+	var index = task.index;
+
 	// Creating the keyword regex
-	var relevance_check_string = keywords.join('|');
+	var relevance_check_string = config.keywords.join('|');
 	this.relevance_check = new RegExp(relevance_check_string, 'i');
 
 	// Paths
@@ -42,7 +49,7 @@ function Thread(url, keywords, output_format, output_directory, index, callback)
 	// Properties
 	this.base_url = url;
 	this.hasPagination = false;
-	this.nextPage = false;
+	this.nextPage = this.base_url;
 	this.isLastPage = false;
 	this.isRelevant = false;
 	this.current_salt = false;
@@ -53,15 +60,37 @@ function Thread(url, keywords, output_format, output_directory, index, callback)
 	//------------
 	this.loop_through_thread = function(url, isFirstPage){
 
-		url_getter.fetch(url, function(data){
+		// Debug
+		console.log('    debug :: '.blue+'getting '+url);
+		
+		fetcher.get(url, function(data, code){
+
+			// No data
+			if(data === false){
+				self.kill('No Data, Code ('+code+')');
+				return false;
+			}
+
+			// Wrong pages
+			if(data.search(/aff2_signature/) == -1){
+
+				// Message
+				console.log(('Post ('+self.base_url+') does not exist any more. Moving on...').red);
+				self.kill('Inexistant redirected post');
+				return false;
+			}
 
 			// Loading Cheerio
 			$ = cheerio.load(data);
 
-			// Checking if we are taken for a robot
+			// Checking if we are kicked
 			if($('div.captcha').length > 0){
 				console.log('Error :: Aufeminin\'s limit reached.'.red);
-				process.exit();
+				
+				// Waiting
+				console.log('Waiting 5 minutes before starting again.'.blue);
+				timer.msleepSync(5);
+				self.loop_through_thread(self.nextPage, isFirstPage);
 			}
 
 			// Checking the existence of a pagination
@@ -80,10 +109,11 @@ function Thread(url, keywords, output_format, output_directory, index, callback)
 			if(self.isLastPage){
 
 				if(self.isRelevant){
-					self.output(index);
+					self.output();
 				}
 				else{
 					callback(index);
+					delete self;
 				}
 				return false;
 			}
@@ -95,14 +125,21 @@ function Thread(url, keywords, output_format, output_directory, index, callback)
 	}
 
 
-
-
-
 	// Utilities
 	//------------
 
 	// Initializing loop
 	this.loop_through_thread(self.base_url, true);
+
+	// Killing process
+	this.kill = function(reason){
+
+		// Keeping file for checking
+		log.write('Reason : '+reason+' --'+this.base_url, 'error');
+		callback(index);
+		delete self;
+		return false;
+	}
 
 	// Searching for pagination
 	this.checkPagination = function(){
@@ -178,9 +215,9 @@ function Thread(url, keywords, output_format, output_directory, index, callback)
 	}
 
 	// Outputting
-	this.output = function(index){
+	this.output = function(){
 
-		// Async to text file
+		// Announcing
 		console.log('Outputting relevant thread :: '.green+self.base_url);
 
 		// Formatting
@@ -193,7 +230,7 @@ function Thread(url, keywords, output_format, output_directory, index, callback)
 		}
 
 		// If we output to file or mongo
-		if(output_format == 'json'){
+		if(config.format == 'json'){
 			this.output_to_json(thread_output, function(){
 
 				// Triggering callback
@@ -203,7 +240,7 @@ function Thread(url, keywords, output_format, output_directory, index, callback)
 				delete self;
 			});
 		}
-		else if(output_format == 'mongo'){
+		else if(config.format == 'mongo'){
 			this.output_to_mongo(thread_output, function(){
 
 				// Triggering callback
@@ -219,7 +256,7 @@ function Thread(url, keywords, output_format, output_directory, index, callback)
 	// Outputting to file
 	this.output_to_json = function(thread_output, callback){
 
-		var filename = output_directory+'/'+escape(thread_output.title)+'_'+thread_output.date+'_'+thread_output.author;
+		var filename = config.output+'/'+escape(thread_output.title)+'_'+thread_output.date+'_'+thread_output.author;
 
 		// Writing
 		fs.writeFile(filename, JSON.stringify(thread_output), function(err){
@@ -235,7 +272,7 @@ function Thread(url, keywords, output_format, output_directory, index, callback)
 	this.output_to_mongo = function(thread_output, callback){
 		
 		// To database
-		var db_thread = new output_directory({data : thread_output});
+		var db_thread = new config.model({data : thread_output});
 		db_thread.save(function(err){
 			if(err){
 				console.log(('Error inserting '+self.base_url+' thread in mongo database.').red);

@@ -1,6 +1,6 @@
 /*
 | -------------------------------------------------------------------
-|  Forum Abstraction
+|  Forum Parser
 | -------------------------------------------------------------------
 |
 |
@@ -10,15 +10,17 @@
 */
 
 // Dependancies
-//-------------
+//=============
 var fs = require('fs');
-var url_getter = require('../tools/URLGetter.js');
+var colors = require('colors');
 var cheerio = require('cheerio');
-var AFHelper = require('./AFHelper.js');
+var Fetcher = require('../tools/Fetcher');
+var AFHelper = require('./AFHelper');
+var config = require('../tools/ConfigLoader');
 
 // Main Class
-//------------
-function Forum(url, output_directory, max_date, callback){
+//===========
+function Forum(url, callback){
 
 
 	// Object Configuration
@@ -35,28 +37,33 @@ function Forum(url, output_directory, max_date, callback){
 
 	// Properties
 	this.current_date = new Date();
-
 	this.date_to_reach = new Date();
 	this.date_to_reach.setMonth(this.current_date.getMonth() - 12);
+
 	this.base_url = url;
 	this.pages_to_visit = [];
 	this.name = false;
 	this.current_salt = false;
-	this.max_date = max_date;
 	this.backEnough = false;
 	this.next_page_url = false;
 	this.current_page = 1;
+
+	// Quick Message
 	console.log('Getting :: '.blue+this.base_url);
-
-
 
 	// Base Loop
 	//------------
 	this.loop_through_forum = function(url, isFirstPage){
 
-		url_getter.fetch(url, function(data, code){
-			
-			// Loading Cheerio
+		Fetcher.get(url, function(data, code){
+
+			// If no data
+			if(!data){
+				self.output();
+				return false;
+			}
+
+			// Parsing with cheerio
 			$ = cheerio.load(data);
 
 			// Getting date salt
@@ -85,9 +92,6 @@ function Forum(url, output_directory, max_date, callback){
 
 		});
 	}
-
-
-
 
 
 	// Utilities
@@ -144,7 +148,7 @@ function Forum(url, output_directory, max_date, callback){
 		console.log("Outputting...".green);
 
 		// Writing to file
-		var filename = output_directory+'/'+this.name+'.json';
+		var filename = config.output+'/'+this.name+'.json';
 
 		// Compiling some metadatas
 		var json = {
@@ -161,19 +165,14 @@ function Forum(url, output_directory, max_date, callback){
 				console.log(('Error outputting '+self.base_url+' forum.').red);
 			}
 
-			// Announcing end
-			console.log('Process Finished'.green);
-			console.log('Get the results in : '.blue+filename);
-			console.log('');
-
 			// Triggering Callback
-			callback();
+			callback(filename);
 		});
 	}
 }
 
 
 // Exporting
-//------------
+//==========
 module.exports = Forum;
 
