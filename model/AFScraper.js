@@ -86,7 +86,14 @@ function AFScraper(){
 
 	// Text Compilation
 	//-----------------
+	this.compile = function(callback){
 
+		// Announcing
+		console.log('');
+		console.log('Starting text compilation'.blue);
+
+		callback();
+	}
 
 }
 
