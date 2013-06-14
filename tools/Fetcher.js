@@ -72,7 +72,7 @@ function Fetcher(){
 					}
 				}
 
-				// Everything went fine, we parse the data and send it back
+				// Everything went fine, we give the data back
 				callback(body, response.statusCode);
 				return false;
 			});
