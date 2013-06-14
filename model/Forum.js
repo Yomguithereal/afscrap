@@ -68,7 +68,7 @@ function Forum(url, callback){
 			$ = cheerio.load(data);
 
 			// Checking if we are kicked
-			if($('div.captcha').length == 0){
+			if($('div.captcha').length > 0){
 				console.log('Error :: Aufeminin\'s limit reached.'.red);
 				
 				// Waiting
