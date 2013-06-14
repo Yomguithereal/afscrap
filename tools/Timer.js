@@ -65,7 +65,7 @@ function Timer(){
 
 	// Seconds sleep
 	this.sleepSync = function(seconds){
-		this.usleep(seconds*1000);
+		this.usleepSync(seconds*1000);
 	}
 	this.sleep = function(seconds, callback){
 		setTimeout(callback, seconds*1000);
@@ -73,7 +73,7 @@ function Timer(){
 
 	// Minutes sleep
 	this.msleepSync = function(minutes){
-		this.sleep(minutes*60);
+		this.sleepSync(minutes*60);
 	}
 	this.msleep = function(minutes, callback){
 		setTimeout(callback, minutes*1000*60);

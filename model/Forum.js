@@ -17,6 +17,7 @@ var cheerio = require('cheerio');
 var Fetcher = require('../tools/Fetcher');
 var AFHelper = require('./AFHelper');
 var config = require('../tools/ConfigLoader');
+var timer = require('../tools/Timer');
 
 // Main Class
 //===========
@@ -65,6 +66,17 @@ function Forum(url, callback){
 
 			// Parsing with cheerio
 			$ = cheerio.load(data);
+
+			// Checking if we are kicked
+			if($('div.captcha').length == 0){
+				console.log('Error :: Aufeminin\'s limit reached.'.red);
+				
+				// Waiting
+				console.log('Waiting 3 minutes before starting again.'.blue);
+				timer.msleepSync(3);
+				self.loop_through_forum(self.next_page_url, isFirstPage);
+				return false;
+			}
 
 			// Getting date salt
 			self.current_salt = data.match(/aff_FormatDate.sd=([^;]+);/)[1];

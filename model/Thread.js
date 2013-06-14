@@ -91,6 +91,7 @@ function Thread(task, callback){
 				console.log('Waiting 5 minutes before starting again.'.blue);
 				timer.msleepSync(5);
 				self.loop_through_thread(self.nextPage, isFirstPage);
+				return false;
 			}
 
 			// Checking the existence of a pagination
