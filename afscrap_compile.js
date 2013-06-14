@@ -82,7 +82,3 @@ function AFScraperCompile(){
 // Launching Process
 //------------
 AFScraperCompile();
-
-
-// name jj-mm-yy__auteur__titre__forum
-// then blocks;

@@ -13,6 +13,7 @@
 //=============
 var colors = require('colors');
 var async = require('async');
+var fs = require('fs');
 var config = require('../tools/ConfigLoader');
 
 // Main Class
@@ -22,6 +23,9 @@ function AFScraper(){
 	// Object Configuration
 	var self = this;
 	var pool = config.processes || 1;
+
+	// Cleansing Regex
+	this.cleansing_regex = new RegExp('<[^>]+>', 'gi');
 
 	// Forum Loop
 	//--------------
@@ -89,10 +93,61 @@ function AFScraper(){
 	this.compile = function(callback){
 
 		// Announcing
-		console.log('');
 		console.log('Starting text compilation'.blue);
 
-		callback();
+		// Checking emptyness
+		config.model.count(function(err, count){
+			if(count == 0){
+				console.log('Error :: the database is inexistant or empty'.red);
+				end();
+				return false;
+			}
+
+			// Getting the threads back
+			config.model.find({}, function(err, rows){
+
+				var queue = async.queue(output, 50);
+				rows.forEach(function(row){
+
+					// Outputting
+					queue.push(row.data);
+				});
+
+				// Finishing
+				queue.drain = end;
+			});
+		});
+
+
+		// Templating
+		function output(thread, callback){
+
+			// Filename
+			var filename = thread.date+'__'+thread.author+'__'+escape(thread.title)+'__'+config.database+'.txt';
+
+			// Splitting posts into blocks
+			var string = '';
+			thread.posts.forEach(function(post){
+				string += post.text.replace(self.cleansing_regex, '')+'\n\n';
+			});
+
+			// Writing file
+			fs.writeFile(config.output+'/'+filename, string, function(){
+				callback();
+			});
+		}
+
+
+		// Closing
+		function end(){
+
+			// Message
+			console.log('Process Finished'.green);
+			console.log('Find the results in : '.blue+config.output);
+
+			// Back to ArgvParser to close connection
+			callback();
+		}
 	}
 
 }

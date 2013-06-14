@@ -85,7 +85,7 @@ function AFScrapThread(){
 		var threadModel = mongoose.model('threads', threadSchema);
 		
 		// Passing to configuration
-		config.mongo_model = threadModel;
+		config.model = threadModel;
 
 	}
 
