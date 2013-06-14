@@ -10,22 +10,18 @@
 */
 
 // Dependancies
-//-------------
+//=============
 var colors = require('colors');
 var async = require('async');
 var config = require('../tools/ConfigLoader');
 
 // Main Class
-//------------
+//===========
 function AFScraper(){
 
 	// Object Configuration
 	var self = this;
 	var pool = config.processes || 1;
-
-
-	// Main Methods
-	//=============
 
 	// Forum Loop
 	//--------------
@@ -86,12 +82,14 @@ function AFScraper(){
 				console.log('Get the results in : '.blue+config.output);
 			}
 		}
-		
 	}
+
+	// Text Compilation
+	//-----------------
 
 
 }
 
-// Launching the process
-//----------------------
+// Exporting
+//==========
 module.exports = new AFScraper();
