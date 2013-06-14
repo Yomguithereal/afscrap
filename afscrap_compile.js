@@ -68,7 +68,7 @@ function AFScraperCompile(){
 	});
 	var threadModel = mongoose.model('threads', threadSchema);
 
-	// Checking the empty or inexistant database
+	// Passing to config
 	config.model = threadModel;
 
 	
