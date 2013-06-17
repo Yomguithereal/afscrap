@@ -28,11 +28,6 @@ function Fetcher(){
 	this.proxy = false;
 	this.timeout_range = [3, 5];
 
-	// Updating proxy
-	if(config.extern !== undefined){
-		this.proxy = config.extern.proxy;
-	}
-
 	// Getting the html
 	this.get = function(target, callback){
 

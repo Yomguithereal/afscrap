@@ -28,6 +28,7 @@ var Schema = require('mongoose').Schema;
 var path = require('path');
 var AFScraper = require('./model/AFScraper.js');
 var config = require('./tools/ConfigLoader.js');
+var fetcher = require('./tools/Fetcher');
 
 // Main Class
 //------------
@@ -94,6 +95,9 @@ function AFScrapThread(){
 	config.list_path = program.list;
 	config.load('keywords', program.keywords);
 	config.load('extern', './config/config.json');
+
+	// Setting proxy
+	fetcher.proxy = config.extern.proxy || false;
 
 	// Checking existence of output dir.
 	if(!fs.existsSync(program.output) && program.format != 'mongo'){
