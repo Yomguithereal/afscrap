@@ -15,7 +15,7 @@ var fs = require('fs');
 var fetcher = require('../tools/Fetcher');
 var cheerio = require('cheerio');
 var config = require('../tools/ConfigLoader');
-var Post = require('./Post.js');
+var Post = require('./Post');
 var log = require('../tools/Logger');
 var timer = require('../tools/Timer');
 
