@@ -71,15 +71,6 @@ function Thread(task, callback){
 				return false;
 			}
 
-			// Wrong pages
-			if(data.search(/aff2_signature/) == -1){
-
-				// Message
-				console.log(('Post ('+self.base_url+') does not exist any more. Moving on...').red);
-				self.kill('Inexistant redirected post');
-				return false;
-			}
-
 			// Loading Cheerio
 			$ = cheerio.load(data);
 
@@ -91,6 +82,15 @@ function Thread(task, callback){
 				console.log('Waiting 5 minutes before starting again.'.blue);
 				timer.msleepSync(5);
 				self.loop_through_thread(self.nextPage, isFirstPage);
+				return false;
+			}
+
+			// Wrong pages
+			if(data.search(/aff2_signature/) == -1){
+
+				// Message
+				console.log(('Post ('+self.base_url+') does not exist any more. Moving on...').red);
+				self.kill('Inexistant redirected post');
 				return false;
 			}
 
