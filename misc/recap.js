@@ -1,3 +1,5 @@
+// Script used to generate a quick overview of fora to parse
+
 var fs = require('fs');
 var config = require('../tools/ConfigLoader');
 
