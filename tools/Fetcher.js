@@ -26,7 +26,7 @@ function Fetcher(){
 	// Acceptable HTTP Code
 	this.acceptable_http_code = [200, 304];
 	this.proxy = false;
-	this.timeout_range = [2, 4];
+	this.timeout_range = [3, 5];
 
 	// Updating proxy
 	if(config.extern !== undefined){

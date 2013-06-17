@@ -140,6 +140,7 @@ function Forum(url, callback){
 			if(url === undefined){
 
 				// De-obfuscating threads with no replies
+				// TODO :: gérer les problèmes de décryptage foireux
 				var encrypted_link = $(this).find('.aff_message > script').text();
 				encrypted_link = encrypted_link.replace("jsdchtml3('", "").replace("');", "");
 				url = AFHelper.deobfuscate(encrypted_link).match(/href="([^"]+)"/)[1];

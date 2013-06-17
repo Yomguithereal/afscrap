@@ -22,7 +22,7 @@ function AFScraper(){
 
 	// Object Configuration
 	var self = this;
-	var pool = config.processes || 1;
+	this.pool = 1;
 
 	// Cleansing Regex
 	this.cleansing_regex = new RegExp('<[^>]+>', 'gi');
@@ -48,6 +48,9 @@ function AFScraper(){
 	// Thread Loop
 	//--------------
 	this.fetchThreads = function(mongoose){
+
+		// Processes
+		this.pool = config.processes || 1;
 
 		// Model
 		var Thread = require('./Thread');

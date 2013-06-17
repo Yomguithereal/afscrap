@@ -147,6 +147,7 @@ function Thread(task, callback){
 
 		// Getting main nav
 		var $nav = $(self.pagination_path).find("table");
+		
 		if($nav.length > 0){
 			self.hasPagination = true;
 
