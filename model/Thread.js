@@ -47,7 +47,7 @@ function Thread(task, callback){
 	this.post_content_path = 'p.aff_contenu';
 
 	// Properties
-	this.base_url = url.replace(/.html>.*/, '.html'); // Cleaning some unproper encrypted url
+	this.base_url = url.replace(/.html>.*/, '.html'); // Cleaning some wrongly encrypted url
 	this.hasPagination = false;
 	this.nextPage = this.base_url;
 	this.isLastPage = false;

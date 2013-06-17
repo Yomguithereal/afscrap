@@ -59,8 +59,13 @@ function AFScraper(){
 		var cache = require('../tools/Cacher');
 		cache.check(config.list_path);
 
+		// Override for async
+		function create_thread(task, callback){
+			new Thread(task, callback);
+		}
+
 		// Queuing
-		var queue = async.queue(Thread, this.pool);
+		var queue = async.queue(create_thread, this.pool);
 		config.list.threads.forEach(function(item, i){
 			if(cache.stash.indexOf(i) == -1){
 				queue.push({url: item.url, index: i}, function(index){
