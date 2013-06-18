@@ -12,9 +12,10 @@
 
 
 // Commands
-//-========
+//=========
 // -u / --url : url of forum to crawl
 // -o / --output : path to output directory
+// -m / --minimum : minimum number of post for thread to be accepted
 
 
 // Dependancies
@@ -39,6 +40,7 @@ function AFScrapForum(){
 		.usage('')
 		.option('-o, --output <output-directory>', 'output directory written in node flavor (default : ./output)')
 		.option('-u, --url <forum-to-crawl>', 'url of forum to crawl')
+		.option('-m, --minimum <nb-of-posts>', 'Minimum number of posts for thread to be considered as relevant', parseInt)
 		.parse(process.argv)
 
 		// Default values
@@ -48,7 +50,7 @@ function AFScrapForum(){
 		.check('url')
 
 		// Transfer to Config
-		.toConfig('output');
+		.toConfig('output', 'minimum');
 	
 
 

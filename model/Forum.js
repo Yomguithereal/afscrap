@@ -41,6 +41,8 @@ function Forum(url, callback){
 	this.date_to_reach = new Date();
 	this.date_to_reach.setMonth(this.current_date.getMonth() - 12);
 
+	this.min_posts = config.minimum || false;
+
 	this.base_url = url;
 	this.pages_to_visit = [];
 	this.name = false;
@@ -126,14 +128,19 @@ function Forum(url, callback){
 		// Looping through the main table
 		$(self.thread_list_path).each(function(i){
 
+			var script = $(this).find('.aff_dateHeure > script').html();
+
 			// Checking the date and stopping if necessary
-			var encrypted_date = $(this).find('.aff_dateHeure > script').html().match(/aff_FormatDate\(([^,]+),/)[1];
+			var encrypted_date = script.match(/aff_FormatDate\(([^,]+),/)[1];
 			var date = AFHelper.formatDate(encrypted_date, self.current_salt, true);
 
 			if(date <= self.date_to_reach){
 				self.backEnough = true;
 				return false;
 			}
+
+			// Checking the number of posts
+			var number_of_posts = script.match(/aff_addNbRep\([^,]+,([^)]+)/)[1];
 
 			// Getting the url
 			var url = $(this).find('.aff_message > a').attr('href');
@@ -147,9 +154,19 @@ function Forum(url, callback){
 			}
 
 			// Pushing to array
-			self.pages_to_visit.push({
-				'url' : url
-			});
+			if(!self.min_posts){
+				self.pages_to_visit.push({
+					'url' : url
+				});
+			}
+			else{
+				if(number_of_posts >= self.min_posts){
+					self.pages_to_visit.push({
+						'url' : url
+					});
+				}
+			}
+			
 
 		});
 	}
@@ -171,6 +188,8 @@ function Forum(url, callback){
 			end_date : AFHelper.outputDate(this.date_to_reach),
 			threads : this.pages_to_visit
 		};
+
+		console.log('Threads :: '.green+json.nb_threads);
 
 		// Writing
 		fs.writeFile(filename, JSON.stringify(json), function(err){

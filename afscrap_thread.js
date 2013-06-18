@@ -11,7 +11,7 @@
 */
 
 // Commands
-//---------
+//=========
 // -l / --list : url list path
 // -o / --output : output directory
 // -k / --keywords : keywords path
@@ -20,7 +20,7 @@
 
 
 // Dependancies
-//-------------
+//=============
 var fs = require('fs');
 var program = require('./tools/ArgvParser');
 var mongoose = require('mongoose');
@@ -31,7 +31,7 @@ var config = require('./tools/ConfigLoader.js');
 var fetcher = require('./tools/Fetcher');
 
 // Main Class
-//------------
+//===========
 function AFScrapThread(){
 
 	// Announcing
@@ -113,5 +113,5 @@ function AFScrapThread(){
 
 
 // Launching Process
-//------------
+//==================
 AFScrapThread();

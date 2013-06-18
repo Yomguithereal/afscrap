@@ -12,13 +12,13 @@
 
 
 // Commands
-//---------
+//=========
 // -o / --output : output directory
 // -d / --database : database to compile
 
 
 // Dependancies
-//-------------
+//=============
 var fs = require('fs');
 var program = require('./tools/ArgvParser');
 var colors = require('colors');
@@ -29,7 +29,7 @@ var AFScraper = require('./model/AFScraper');
 
 
 // Main Class
-//------------
+//===========
 function AFScraperCompile(){
 
 
@@ -80,5 +80,5 @@ function AFScraperCompile(){
 
 
 // Launching Process
-//------------
+//==================
 AFScraperCompile();

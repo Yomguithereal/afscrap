@@ -79,8 +79,8 @@ function Thread(task, callback){
 				console.log('Error :: Aufeminin\'s limit reached.'.red);
 				
 				// Waiting
-				console.log('Waiting 5 minutes before starting again.'.blue);
-				timer.msleepSync(5);
+				console.log('Waiting 7 minutes before starting again.'.blue);
+				timer.msleepSync(7);
 				self.loop_through_thread(self.nextPage, isFirstPage);
 				return false;
 			}

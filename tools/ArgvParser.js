@@ -13,7 +13,6 @@
 var colors = require('colors');
 var Command = require('commander').Command;
 var config = require('./ConfigLoader');
-var timer = require('./Timer');
 
 // Main Methods
 //=============
