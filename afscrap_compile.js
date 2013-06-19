@@ -36,7 +36,7 @@ function AFScraperCompile(){
 	// Announcing
 	console.log('');
 	console.log('AFScrap Threads Compiler'.yellow);
-	console.log('--------------------'.yellow);
+	console.log('------------------------'.yellow);
 
 	// Initializing the tool
 	program
