@@ -65,6 +65,13 @@ function Thread(task, callback){
 		
 		fetcher.get(url, function(data, code){
 
+			// Code 400
+			if(code == 400){
+				console.log('Error :: Code 400 -- Connection or Server Error'.red);
+				timer.msleepSync(7);
+				self.loop_through_thread(self.nextPage, isFirstPage);
+			}
+
 			// No data
 			if(data === false){
 				self.kill('No Data, Code ('+code+')');
