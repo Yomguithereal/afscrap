@@ -35,7 +35,7 @@ function Thread(task, callback){
 	var index = task.index;
 
 	// Creating the keyword regex
-	var relevance_check_string = config.keywords.join('|');
+	var relevance_check_string = config.keywords.map(function(item){return '\\b'+item+'\\b'}).join('|');
 	this.relevance_check = new RegExp(relevance_check_string, 'i');
 
 	// Paths
