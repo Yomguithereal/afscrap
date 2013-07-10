@@ -17,7 +17,8 @@
     "colors" : "*",
     "commander" : "*",
     "mongoose" : "*",
-    "async" : "*"
+    "async" : "*",
+    "moment" : "*"
   },
   "engines" : {
     "node" : ">=0.10.9"
