@@ -19,7 +19,7 @@ sudo npm install
 ##Workflow
 Afscraper workflow is divided into two/three steps:
 
-###Fetch the threads links from a particular forum
+###1. Fetch the threads links from a particular forum
 	
 The first step is to determine a forum to scrap and get the url of its summary. Hence, you can
 start checking the forum and get back urls corresponding to threads. 
@@ -44,7 +44,7 @@ options : -m/--minimum [minimum-of-posts]
 
 
 
-###Fetch the relevant threads
+###2. Fetch the relevant threads
 
 The second step consist in the actual crawl of the threads and the recuperation of the relevant
 ones. 
@@ -74,7 +74,7 @@ options : -f/--format [output-format], either json or mongo, default: mongo
 
 
 
-###(Optional) Compile results to text
+###3. (Optional) Compile results to text
 	
 If you decided to store your results in a mongo database, you may want to obtain only textual information
 from the threads you gathered.
