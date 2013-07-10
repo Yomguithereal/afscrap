@@ -14,6 +14,7 @@
 var colors = require('colors');
 var async = require('async');
 var fs = require('fs');
+var Schema = require('mongoose').Schema;
 var config = require('../tools/ConfigLoader');
 
 // Main Class
