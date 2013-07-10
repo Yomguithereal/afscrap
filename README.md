@@ -19,19 +19,19 @@ sudo npm install
 ##Workflow
 Afscraper workflow is divided into two/three steps:
 
-+ 1) Fetch the threads links from a particular forum
+###Fetch the threads links from a particular forum
 	
-	The first step is to determine a forum to scrap and get the url of its summary. Hence, you can
-	start checking the forum and get back urls corresponding to threads. 
+The first step is to determine a forum to scrap and get the url of its summary. Hence, you can
+start checking the forum and get back urls corresponding to threads. 
 
-	The crawler will
-	start from the current date and stop when he has completed a full year. 
+The crawler will
+start from the current date and stop when he has completed a full year. 
 
-	You can also limit the 
-	search to threads having a specified minimum of posts. 
+You can also limit the 
+search to threads having a specified minimum of posts. 
 
-	The result will be a json file that you
-	will have to pass to step 2 to begin the real crawl.
+The result will be a json file that you
+will have to pass to step 2 to begin the real crawl.
 
 
 Example:
@@ -44,23 +44,23 @@ options : -m/--minimum [minimum-of-posts]
 
 
 
-+ 2) Fetch the relevant threads
+###Fetch the relevant threads
 
-	The second step consist in the actual crawl of the threads and the recuperation of the relevant
-	ones. 
+The second step consist in the actual crawl of the threads and the recuperation of the relevant
+ones. 
 
-	The tool must be fed with a json file created by step 1 and a configuration file including
-	the keywords you want to match. 
+The tool must be fed with a json file created by step 1 and a configuration file including
+the keywords you want to match. 
 
-	The results can be outputed either to a local mongo database, either
-	to json files. 
+The results can be outputed either to a local mongo database, either
+to json files. 
 
-	You can use more than one process and go faster but be advised that you will reach
-	aufemin's sites limit very fast. Only increase processes on small thread lists. Moreover, take notice
-	that the url fetcher pauses for 3-5 seconds between each url to prevent being kicked by aufeminin.
+You can use more than one process and go faster but be advised that you will reach
+aufemin's sites limit very fast. Only increase processes on small thread lists. Moreover, take notice
+that the url fetcher pauses for 3-5 seconds between each url to prevent being kicked by aufeminin.
 
-	The recuperation of threads can be interrupted and every results are cached. It is therefore possible to 
-	fetch your results in more than one time.
+The recuperation of threads can be interrupted and every results are cached. It is therefore possible to 
+fetch your results in more than one time.
 
 
 Example :
@@ -74,12 +74,12 @@ options : -f/--format [output-format], either json or mongo, default: mongo
 
 
 
-+ 3) (Optional) Compile results to text
+###(Optional) Compile results to text
 	
-	If you decided to store your results in a mongo database, you may want to obtain only textual information
-	from the threads you gathered.
+If you decided to store your results in a mongo database, you may want to obtain only textual information
+from the threads you gathered.
 
-	The third tool will therefore parse a result database and create text files from it.
+The third tool will therefore parse a result database and create text files from it.
 
 
 Example:
