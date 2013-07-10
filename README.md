@@ -33,6 +33,8 @@ Afscraper workflow is divided into two/three steps:
 	The result will be a json file that you
 	will have to pass to step 2 to begin the real crawl.
 
+
+Example:
 ```sh
 node afscrap_forum -u/--url [url-of-forum-summary]
 
@@ -60,6 +62,8 @@ options : -m/--minimum [minimum-of-posts]
 	The recuperation of threads can be interrupted and every results are cached. It is therefore possible to 
 	fetch your results in more than one time.
 
+
+Example :
 ```sh
 node afscrap_thread -l/--list [path-to-thread-list] -k/--keywords [path-to-keywords]
 
@@ -77,6 +81,8 @@ options : -f/--format [output-format], either json or mongo, default: mongo
 
 	The third tool will therefore parse a result database and create text files from it.
 
+
+Example:
 ```sh
 node afscrap_compile -d/--database [name-of-database]
 
