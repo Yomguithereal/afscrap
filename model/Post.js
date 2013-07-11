@@ -10,11 +10,11 @@
 */
 
 // Dependancies
-//-------------
+//=============
 var AFHelper = require('./AFHelper.js');
 
 // Main Class
-//------------
+//===========
 function Post(properties){
 	
 	var self = this;
@@ -28,5 +28,5 @@ function Post(properties){
 }
 
 // Exporting
-//------------
+//===========
 module.exports = Post;
