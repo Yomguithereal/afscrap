@@ -4,6 +4,7 @@
 /forum_lists
 /cache
 /logs
+/stats
 /config/config.json
 TODO.txt
 *.cache

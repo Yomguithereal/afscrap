@@ -43,6 +43,11 @@ function AFStatsBuilder(){
 	// Loading configuration
 	config.load('fora', './forum_lists/recapitulatif.json');
 
+	// Output folder
+	if(!fs.existsSync('stats')){
+		fs.mkdirSync('stats');
+	}
+
 	AFStats.exec(function(){
 		mongoose.disconnect();
 	});
