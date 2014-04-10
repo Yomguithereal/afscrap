@@ -8,7 +8,7 @@
 |	Version : 1.0
 */
 
-// Dependancies
+// Dependencies
 //=============
 var path = require('path');
 var fs = require('fs');

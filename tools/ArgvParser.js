@@ -8,7 +8,7 @@
 |	Version : 1.0
 */
 
-// Dependancies
+// Dependencies
 //=============
 var colors = require('colors');
 var Command = require('commander').Command;

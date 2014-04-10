@@ -9,7 +9,7 @@
 |	Version : 1.0
 */
 
-// Dependancies
+// Dependencies
 //=============
 var request = require('request');
 var colors = require('colors');

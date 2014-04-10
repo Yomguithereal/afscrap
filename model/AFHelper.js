@@ -9,7 +9,7 @@
 |	Version : 1.0
 */
 
-// Dependancies
+// Dependencies
 //-------------
 
 // Main Class

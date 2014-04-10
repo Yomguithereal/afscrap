@@ -17,7 +17,7 @@
 // -d / --database : database to compile
 
 
-// Dependancies
+// Dependencies
 //=============
 var fs = require('fs');
 var program = require('./tools/ArgvParser');

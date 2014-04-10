@@ -9,7 +9,7 @@
 |	Version : 1.0
 */
 
-// Dependancies
+// Dependencies
 //=============
 var fs = require('fs');
 var fetcher = require('../tools/Fetcher');

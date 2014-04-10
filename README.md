@@ -8,7 +8,7 @@ The threads are then archived in a mongo database or in json format where consid
 matched against keywords.
 
 ##Installation
-To install Afscraper, simply clone it on your computer and install its dependancies.
+To install Afscraper, simply clone it on your computer and install its dependencies.
 
 ```sh
 git clone https://github.com/Yomguithereal/afscrap.git
@@ -104,7 +104,7 @@ To register your keywords, you must create a json file respecting this format
 If you want to configure a proxy, refer to config/config.example.json and just drop the .example part
 when your proxy is specified.
 
-##Dependancies
+##Dependencies
 	
 	node (>= 0.10.9)
 	request
