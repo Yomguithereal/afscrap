@@ -104,7 +104,7 @@ To register your keywords, you must create a json file respecting this format
 If you want to configure a proxy, refer to config/config.example.json and just drop the .example part
 when your proxy is specified.
 
-##Dependancies
+##Dependencies
 	
 	node (>= 0.10.9)
 	request
